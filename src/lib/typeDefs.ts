@@ -1,5 +1,7 @@
 export const typeDefs = `#graphql
 
+scalar File
+
 type User {
   id: ID! @id(autogenerate: true)
   email: String!
@@ -38,7 +40,9 @@ type Sample {
   #        @relationship(type: "CREATED_BY", direction: OUT, nestedOperations: [])
   #        @settable(onCreate: false, onUpdate: false)
 
+  observations: [Observation!]! @relationship(type: "HAS_OBSERVATION", direction: OUT)
   propagations: [Propagation!]! @relationship(type: "HAS_PROPAGATION", direction: OUT)
+
   recording: Recording! @relationship(type: "HAS_SAMPLE", direction: IN)
 }
 
@@ -51,8 +55,10 @@ type Propagation {
   #        @relationship(type: "CREATED_BY", direction: OUT, nestedOperations: [])
   #        @settable(onCreate: false, onUpdate: false)
 
-  recipe: Recipe! @relationship(type: "HAS_RECIPE", direction: OUT)
+  observations: [Observation!]! @relationship(type: "HAS_OBSERVATION", direction: OUT)
   plates: [Plate!]! @relationship(type: "HAS_PLATE", direction: OUT)
+  recipe: Recipe! @relationship(type: "HAS_RECIPE", direction: OUT)
+
   sample: Sample! @relationship(type: "HAS_SAMPLE", direction: IN)
 }
 
@@ -68,10 +74,12 @@ type Plate {
   #        @relationship(type: "CREATED_BY", direction: OUT, nestedOperations: [])
   #        @settable(onCreate: false, onUpdate: false)
 
-  recipe: Recipe! @relationship(type: "HAS_RECIPE", direction: OUT)
+  observations: [Observation!]! @relationship(type: "HAS_OBSERVATION", direction: OUT)
   plates: [Plate!]! @relationship(type: "HAS_PLATE", direction: OUT)
-  propagation: Propagation! @relationship(type: "HAS_PROPAGATION", direction: IN)
+  recipe: Recipe! @relationship(type: "HAS_RECIPE", direction: OUT)
+
   parent: PlateParent! @relationship(type: "HAS_PLATE", direction: IN)
+  propagation: Propagation! @relationship(type: "HAS_PROPAGATION", direction: IN)
 }
 
 enum RecipeType {
@@ -94,5 +102,34 @@ type Recipe {
   #        @settable(onCreate: false, onUpdate: false)
 
   parent: RecipeParent! @relationship(type: "HAS_RECIPE", direction: IN)
+}
+
+union ObservationParent = Sample | Propagation | Plate
+enum ObservationType {
+  SAMPLE
+  PROPAGATION
+  PLATE
+}
+
+type Observation {
+  id: ID! @id(autogenerate: true)
+  type: ObservationType!
+  description: String
+
+  createdAt: DateTime! @timestamp(operations: [CREATE])
+  updatedAt: DateTime! @timestamp(operations: [CREATE, UPDATE])
+  #    createdBy: User!
+  #        @relationship(type: "CREATED_BY", direction: OUT, nestedOperations: [])
+  #        @settable(onCreate: false, onUpdate: false)
+
+  parent: ObservationParent! @relationship(type: "HAS_OBSERVATION", direction: IN)
+}
+
+type UploadResult {
+  filename: String!
+}
+
+type Mutation {
+  upload(file: File!): UploadResult!
 }
 `;

@@ -1,5 +1,5 @@
 import { UserRepository } from '@/repositories/User';
-import { compare, hash } from 'bcrypt';
+import { compare } from 'bcrypt';
 import NextAuth, { type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
@@ -19,8 +19,6 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         const { email, password } = credentials ?? {};
-
-        console.log(await hash(password, 10));
 
         if (!email || !password) {
           throw new Error('Missing username or password');

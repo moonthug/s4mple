@@ -8,6 +8,12 @@ declare global {
       NEO4J_USERNAME: string;
       NEO4J_PASSWORD: string;
 
+      AWS_ACCESS_KEY_ID: string;
+      AWS_SECRET_ACCESS_KEY: string;
+      AWS_DEFAULT_REGION: string;
+
+      AWS_S3_IMAGE_BUCKET: string;
+      
       NEXTAUTH_SECRET: string;
 
       // Public Variables

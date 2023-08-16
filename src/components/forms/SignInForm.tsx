@@ -28,7 +28,7 @@ export default function SignInForm() {
             toast.error(error);
           } else {
             router.refresh();
-            router.push('/protected');
+            router.push('/');
           }
         });
       } }
