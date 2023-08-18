@@ -1,4 +1,5 @@
 import NavBar from '@/components/NavBar';
+import { ApolloProvider } from '@/lib/apollo';
 import { Metadata } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { Toaster } from 'react-hot-toast';
@@ -34,15 +35,17 @@ export default async function RootLayout({
   return (
     <html lang="en">
     <body>
-    <NavBar session={ session }/>
-    <Toaster/>
-    <main className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-      { children }
-    </main>
-    {/*<Suspense fallback="Loading...">*/ }
-    {/*  /!* @ts-expect-error Async Server Component *!/*/ }
-    {/*  <AuthStatus />*/ }
-    {/*</Suspense>*/ }
+    <ApolloProvider>
+      <NavBar session={ session }/>
+      <Toaster/>
+      <main className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+        { children }
+      </main>
+      {/*<Suspense fallback="Loading...">*/ }
+      {/*  /!* @ts-expect-error Async Server Component *!/*/ }
+      {/*  <AuthStatus />*/ }
+      {/*</Suspense>*/ }
+    </ApolloProvider>
     </body>
     </html>
   );

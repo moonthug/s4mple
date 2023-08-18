@@ -1,8 +1,7 @@
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      SERVER_PROTOCOL: string;
-      SERVER_URL?: string;
+
 
       NEO4J_URI: string;
       NEO4J_USERNAME: string;
@@ -13,11 +12,14 @@ declare global {
       AWS_DEFAULT_REGION: string;
 
       AWS_S3_IMAGE_BUCKET: string;
-      
+
       NEXTAUTH_SECRET: string;
 
       // Public Variables
       NEXT_PUBLIC_MAPBOX_TOKEN: string;
+      NEXT_PUBLIC_SERVER_PROTOCOL?: string;
+      NEXT_PUBLIC_VERCEL_URL?: string;
+      NEXT_PUBLIC_SERVER_URL?: string;
     }
   }
 }

@@ -1,8 +1,9 @@
 import { SERVER_URL } from '@/constants/graphql';
-import { ApolloClient, from, HttpLink, InMemoryCache } from '@apollo/client';
+import { from, HttpLink } from '@apollo/client';
 import { loadDevMessages, loadErrorMessages } from '@apollo/client/dev';
 import { onError } from '@apollo/client/link/error';
-import * as process from 'process';
+import { NextSSRInMemoryCache, SSRMultipartLink } from '@apollo/experimental-nextjs-app-support/ssr';
+import process from 'process';
 
 
 if (process.env.NODE_ENV !== 'production') {  // Adds messages only in a dev environment
@@ -22,28 +23,30 @@ const errorLink = onError(({
     graphQLErrors.forEach(({
       extensions,
       message,
-      name,
       locations,
       path
     }) => {
-      const errorMessage = extensions?.originalError?.message || message;
+      const errorMessage = (extensions?.originalError as any)?.message || message;
 
-      console.log(
+      console.error(
         `[GraphQL error]: Message: ${ errorMessage }, Location: ${ locations }, Path: ${ path }`,
       );
     });
 
-  if (networkError) console.log(`[Network error]: ${ networkError }`);
+  if (networkError) console.error(`[Network error]: ${ networkError }`);
 });
 
-
-const client = new ApolloClient({
-  credentials: 'include',
-  cache: new InMemoryCache(),
-  link: from([
-    errorLink,
-    httpLink,
-  ]),
+export const createClientConfig = () => ({
+  cache: new NextSSRInMemoryCache(),
+  link: from(
+    typeof window === 'undefined'
+      ? [
+        new SSRMultipartLink({ stripDefer: true, }),
+        errorLink,
+        httpLink,
+      ]
+      : [
+        errorLink,
+        httpLink,
+      ]),
 });
-
-export default client;

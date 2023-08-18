@@ -1,6 +1,5 @@
 import CreateRecordingForm from '@/components/forms/CreateRecordingForm';
 import { Metadata } from 'next';
-import { getServerSession } from 'next-auth/next';
 
 
 export const metadata: Metadata = {
@@ -9,8 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const session = await getServerSession();
-
   return (
     <div>
       <h3>Create</h3>

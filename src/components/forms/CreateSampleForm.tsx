@@ -1,25 +1,24 @@
 'use client';
 
-import { graphql } from '@/graphql/gql';
-import { useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { Button, Label, TextInput } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import toast from 'react-hot-toast';
 
 
-const CreateRecording_Mutation = graphql(`
-  mutation CreateRecording($input: [RecordingCreateInput!]!) {
-    createRecordings(input: $input) {
-      recordings {
+const CreateSample_Mutation = gql`
+  mutation CreateSample($input: [SampleCreateInput!]!) {
+    createSamples(input: $input) {
+      samples {
         id
       }
     }
   }
-`);
+`;
 
-const CreateRecordingForm: React.FC = () => {
-  const [createRecording, { data, loading, error }] = useMutation(CreateRecording_Mutation);
+const CreateSampleForm: React.FC = () => {
+  const [createSample, { data, loading, error }] = useMutation(CreateSample_Mutation);
 
   const router = useRouter();
 
@@ -29,7 +28,7 @@ const CreateRecordingForm: React.FC = () => {
       onSubmit={ (e) => {
         e.preventDefault();
         debugger;
-        createRecording({
+        createSample({
           variables: {
             input: {
               name: (e.currentTarget.name as any as { value: string }).value,
@@ -38,10 +37,8 @@ const CreateRecordingForm: React.FC = () => {
           }
         })
           .then(({ data }) => {
-            if (data) {
-              const { id } = data.createRecordings.recordings[0];
-              router.push(`/recordings/${ id }`);
-            }
+            const { id } = data.createSamples.samples[0];
+            router.push(`/samples/${ id }`);
           })
           .catch(e => {
             debugger;
@@ -58,7 +55,7 @@ const CreateRecordingForm: React.FC = () => {
         </div>
         <TextInput
           id="name"
-          placeholder="My new yeast recording"
+          placeholder="My new yeast sample"
           required
         />
       </div>
@@ -66,7 +63,7 @@ const CreateRecordingForm: React.FC = () => {
         <div className="mb-2 block">
           <Label
             htmlFor="description"
-            value="My recording description"
+            value="My sample description"
           />
         </div>
         <TextInput
@@ -79,4 +76,4 @@ const CreateRecordingForm: React.FC = () => {
   );
 };
 
-export default CreateRecordingForm;
+export default CreateSampleForm;

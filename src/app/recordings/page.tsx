@@ -1,12 +1,10 @@
 import FAB from '@/components/FAB';
 import { RecordingList } from '@/components/RecordingList/RecordingList';
+import { graphql } from '@/graphql/gql';
 
-import client from '@/lib/apollo';
-import { Recording } from '@/models/Recording';
-import { gql } from '@apollo/client';
+import { getClient } from '@/lib/apollo';
 import { Metadata } from 'next';
 import Link from 'next/link';
-
 import { MdExposurePlus1 } from 'react-icons/md';
 
 
@@ -15,35 +13,20 @@ export const metadata: Metadata = {
   description: 'TEST',
 };
 
-async function getRecordingList() {
-  const { data } = await client.query<{
-    recordings: Recording[]
-  }>({
-    query: gql`
-      query GetRecordings {
-        recordings {
-          id
-          name
-          description
-          createdAt
-          samples {
-            id
-          }
-        }
-      }
-    `,
-  });
-
-  return data.recordings;
-}
+const GetRecordings_Query = graphql(`
+  query GetRecordings {
+    ...RecordingList_QueryFragment
+  }
+`);
 
 export default async function Recordings() {
-  const recordings = await getRecordingList();
+  const { loading, data } = await getClient().query({ query: GetRecordings_Query });
 
   return (
     <main>
-      <RecordingList recordings={ recordings }/>
-      <Link href="/recordings/create">
+      <RecordingList queryRef={ data }/>
+      
+      <Link href="/recordings/new">
         <FAB
           icon={
             () => <MdExposurePlus1

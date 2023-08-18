@@ -16,8 +16,8 @@ type User {
 
 type Recording {
   id: ID! @id(autogenerate: true)
-  name: String
-  description: String
+  name: String!
+  description: String!
 
   createdAt: DateTime! @timestamp(operations: [CREATE])
   updatedAt: DateTime! @timestamp(operations: [CREATE, UPDATE])

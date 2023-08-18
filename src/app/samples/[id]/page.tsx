@@ -1,57 +1,35 @@
-import Sample from '@/components/Sample/Sample';
-import client from '@/lib/apollo';
-import { Sample as SampleModel } from '@/models/Sample';
-import { gql } from '@apollo/client';
+import SampleOverview from '@/components/SampleOverview/SampleOverview';
+import { graphql } from '@/graphql/gql';
+import { getClient } from '@/lib/apollo';
 import { Metadata } from 'next';
 
+
+const GetSampleById_Query = graphql(`
+  query GetSampleById_Query($id: ID!) {
+    samples(where: {id: $id}) {
+      ...SampleOverview_SampleFragment
+    }
+  }
+`);
 
 export const metadata: Metadata = {
   title: 'Samples',
   description: 'TEST',
 };
 
-async function getSample(id: string) {
-  const { data } = await client.query<{
-    samples: SampleModel[]
-  }>({
-    query: gql`
-      query GetSampleById($id: ID!){
-        samples(where: {id: $id}) {
-          id
-          description
-          longitude
-          latitude
-          propagations {
-            id
-            plates {
-              id
-            }
-            recipe {
-              id
-              name
-            }
-          }
-        }
-      }
-    `,
-    variables: {
-      id
-    }
-  });
-
-  return data.samples[0] || null;
-}
-
 export default async function SamplePage({ params }: {
   params: {
     id: string
   }
 }) {
-  const sample = await getSample(params.id);
+  const { data } = await getClient().query({
+    query: GetSampleById_Query,
+    variables: { id: params.id }
+  });
 
   return (
     <main>
-      <Sample sample={ sample }/>
+      <SampleOverview sampleFragmentRef={ data.samples[0] }/>
     </main>
   );
 }

@@ -1,8 +1,20 @@
-import Recording from '@/components/Recording/Recording';
-import client from '@/lib/apollo';
-import { Recording as RecordingModel } from '@/models/Recording';
-import { gql } from '@apollo/client';
+import FAB from '@/components/FAB';
+import RecordingOverview from '@/components/RecordingOverview/RecordingOverview';
+import { graphql } from '@/graphql/gql';
+import { getClient } from '@/lib/apollo';
 import { Metadata } from 'next';
+import Link from 'next/link';
+import React from 'react';
+import { MdExposurePlus1 } from 'react-icons/md';
+
+
+const GetRecordingById_Query = graphql(`
+  query GetRecordingById_Query($id: ID!) {
+    recordings(where: {id: $id}) {
+      ...RecordingOverview_RecordingFragment
+    }
+  }
+`);
 
 
 export const metadata: Metadata = {
@@ -10,49 +22,27 @@ export const metadata: Metadata = {
   description: 'TEST',
 };
 
-async function getRecording(id: string) {
-  const { data } = await client.query<{
-    recordings: RecordingModel[]
-  }>({
-    query: gql`
-      query GetRecordingById($id: ID!){
-        recordings(where: {id: $id}) {
-          id
-          name
-          description
-          createdAt
-          updatedAt
-          samples {
-            id
-            description
-            longitude
-            latitude
-            createdAt
-            propagations {
-              id
-            }
-          }
-        }
-      }
-    `,
-    variables: {
-      id
-    }
-  });
-
-  return data.recordings[0] || null;
-}
 
 export default async function RecordingPage({ params }: {
   params: {
     id: string
   }
 }) {
-  const recording = await getRecording(params.id);
+  const { data } = await getClient().query({ query: GetRecordingById_Query, variables: { id: params.id } });
 
   return (
     <main>
-      <Recording recording={ recording }/>
+      <RecordingOverview recordingFragmentRef={ data.recordings[0] }/>
+      <Link href="/samples/new">
+        <FAB
+          icon={
+            () => <MdExposurePlus1
+              className="inline"
+              color="#fff"
+              size={ 24 }
+            />
+          }/>
+      </Link>
     </main>
   );
 }

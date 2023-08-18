@@ -1,19 +1,36 @@
 import Dendrogram, { NodeShape, NodeType } from '@/components/graph/Dendrogram';
-import { Recording } from '@/models/Recording';
+import { FragmentType, useFragment } from '@/graphql/fragment-masking';
+import { graphql } from '@/graphql/gql';
 import { shortenId } from '../../utils/text';
 
 
+const RecordingDendrogram_RecordingFragment = graphql(/* GraphQL */ `
+  fragment RecordingDendrogram_RecordingFragment on Recording {
+    samples {
+      id
+      propagations {
+        id
+        plates {
+          id
+        }
+      }
+    }
+  }
+`);
+
 type RecordingDendrogramProps = {
-  recording: Recording;
+  recordingFragmentRef: FragmentType<typeof RecordingDendrogram_RecordingFragment>;
   width: number;
   height: number;
 }
 
 export const RecordingDendrogram: React.FC<RecordingDendrogramProps> = ({
-  recording,
+  recordingFragmentRef,
   width,
   height
 }) => {
+  const recording = useFragment(RecordingDendrogram_RecordingFragment, recordingFragmentRef);
+
   const recordingData: NodeShape = {
     name: 'Recording',
     type: NodeType.RECORDING,

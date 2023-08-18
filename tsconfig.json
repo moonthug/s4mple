@@ -1,20 +1,45 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["src/components/*"],
-      "@/context/*": ["src/context/*"],
-      "@/constants/*": ["src/constants/*"],
-      "@/pages/*": ["src/pages/*"],
-      "@/app/*": ["src/app/*"],
-      "@/lib/*": ["src/lib/*"],
-      "@/models/*": ["src/models/*"],
-      "@/repositories/*": ["src/repositories/*"],
-      "@/styles/*": ["src/styles/*"]
+      "@/app/*": [
+        "src/app/*"
+      ],
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/constants/*": [
+        "src/constants/*"
+      ],
+      "@/context/*": [
+        "src/context/*"
+      ],
+      "@/graphql/*": [
+        "src/graphql/*"
+      ],
+      "@/lib/*": [
+        "src/lib/*"
+      ],
+      "@/models/*": [
+        "src/models/*"
+      ],
+      "@/pages/*": [
+        "src/pages/*"
+      ],
+      "@/repositories/*": [
+        "src/repositories/*"
+      ],
+      "@/styles/*": [
+        "src/styles/*"
+      ]
     },
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -32,6 +57,13 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

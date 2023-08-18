@@ -3,8 +3,11 @@
 import { Avatar, Button, Dropdown, Navbar as FlowbiteNavbar } from 'flowbite-react';
 import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
+
+import logo from '../../public/logo.png';
 
 
 type NavbarProps = {
@@ -23,9 +26,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   // console.log('segment', segment);
 
   return (
-    <FlowbiteNavbar fluid rounded>
-      <FlowbiteNavbar.Brand href="https://flowbite.com/">
-        <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-6 sm:h-9" alt="s4mple"/>
+    <FlowbiteNavbar className="!bg-gray-50" fluid rounded>
+      <FlowbiteNavbar.Brand href="https://s4mple.com/">
+        <Image src={ logo } height="40" className="mr-3" alt="s4mple"/>
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">S4MPLE</span>
       </FlowbiteNavbar.Brand>
       <div className="flex md:order-2">

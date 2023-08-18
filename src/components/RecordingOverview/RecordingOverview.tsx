@@ -2,16 +2,33 @@
 
 import Divider from '@/components/Divider';
 import EntityMap from '@/components/EntityMap';
-import RecordingDendrogram from '@/components/Recording/RecordingDendrogram';
-import { SampleList } from '@/components/Recording/SampleList';
+import RecordingDendrogram from '@/components/RecordingOverview/RecordingDendrogram';
+import { SampleList } from '@/components/RecordingOverview/SampleList';
 import EntityTitleId from '@/components/text/EntityTitleId';
-import { Recording as RecordingModel } from '@/models/Recording';
+import { FragmentType, useFragment } from '@/graphql/fragment-masking';
+import { graphql } from '@/graphql/gql';
 import * as Turf from '@turf/turf';
 import { Tabs } from 'flowbite-react';
-
 import React from 'react';
 import { PiGraphFill, PiMapPinBold } from 'react-icons/pi';
 import { CircleLayer, Layer, Source } from 'react-map-gl';
+
+
+const RecordingOverview_RecordingFragment = graphql(/* GraphQL */ `
+  fragment RecordingOverview_RecordingFragment on Recording {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+    samples {
+      latitude
+      longitude
+    }
+    ...RecordingDendrogram_RecordingFragment
+    ...SampleList_RecordingFragment
+  }
+`);
 
 
 export const sampleLayer: CircleLayer = {
@@ -25,12 +42,14 @@ export const sampleLayer: CircleLayer = {
 };
 
 type RecordingProps = {
-  recording: RecordingModel
+  recordingFragmentRef: FragmentType<typeof RecordingOverview_RecordingFragment>
 }
 
-export const Recording: React.FC<RecordingProps> = ({
-  recording
+export const RecordingOverview: React.FC<RecordingProps> = ({
+  recordingFragmentRef
 }) => {
+  const recording = useFragment(RecordingOverview_RecordingFragment, recordingFragmentRef);
+
   const sampleFeatures: GeoJSON.FeatureCollection<GeoJSON.Point> = {
     type: 'FeatureCollection',
     features: recording.samples.map(sample => ({
@@ -43,7 +62,9 @@ export const Recording: React.FC<RecordingProps> = ({
     }))
   };
 
-  const centrePoint = Turf.center(sampleFeatures);
+  const centrePoint = sampleFeatures.features.length > 0
+    ? Turf.center(sampleFeatures)
+    : Turf.point([0, 0]);
 
   return (
     <div>
@@ -81,7 +102,7 @@ export const Recording: React.FC<RecordingProps> = ({
               title="Nodes"
             >
               <RecordingDendrogram
-                recording={ recording }
+                recordingFragmentRef={ recording }
                 width={ 600 }
                 height={ 300 }
               />
@@ -90,9 +111,9 @@ export const Recording: React.FC<RecordingProps> = ({
         </div>
       </div>
       <Divider/>
-      <SampleList samples={ recording.samples }/>
+      <SampleList recordingFragmentRef={ recording }/>
     </div>
   );
 };
 
-export default Recording;
+export default RecordingOverview;

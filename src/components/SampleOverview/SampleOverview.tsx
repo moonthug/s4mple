@@ -1,10 +1,11 @@
 'use client';
 
 import Divider from '@/components/Divider';
-import { PropagationList } from '@/components/Sample/PropagationList';
-import SampleDendrogram from '@/components/Sample/SampleDendrogram';
+import { PropagationList } from '@/components/SampleOverview/PropagationList';
+import SampleDendrogram from '@/components/SampleOverview/SampleDendrogram';
 import EntityTitleId from '@/components/text/EntityTitleId';
-import { Sample as SampleModel } from '@/models/Sample';
+import { FragmentType, useFragment } from '@/graphql/fragment-masking';
+import { graphql } from '@/graphql/gql';
 import { Tabs } from 'flowbite-react';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -13,8 +14,6 @@ import { PiGraphFill, PiMapPinBold } from 'react-icons/pi';
 import { CircleLayer, Layer, Source } from 'react-map-gl';
 import EntityMap from '../EntityMap';
 
-
-const MAPBOX_TOKEN = 'pk.eyJ1IjoiYWxpY2tzIiwiYSI6ImNsNnhhdHVtMTA3N20zZHAxZ2M3MXp0YjcifQ.jsmP4xv9toaq6WSGxTTJDg';
 
 export const sampleLayer: CircleLayer = {
   id: 'sample-position',
@@ -26,13 +25,23 @@ export const sampleLayer: CircleLayer = {
   }
 };
 
+const SampleOverview_SampleFragment = graphql(/* GraphQL */ `
+  fragment SampleOverview_SampleFragment on Sample {
+    id
+    description
+    longitude
+    latitude
+    ...PropagationList_SampleFragment
+  }
+`);
+
 type SampleProps = {
-  sample: SampleModel
+  sampleFragmentRef: FragmentType<typeof SampleOverview_SampleFragment>
 }
 
-export const Sample: React.FC<SampleProps> = ({
-  sample
-}) => {
+export const SampleOverview: React.FC<SampleProps> = ({ sampleFragmentRef }) => {
+  const sample = useFragment(SampleOverview_SampleFragment, sampleFragmentRef);
+
   const sampleFeature: GeoJSON.Feature<GeoJSON.Point> = {
     type: 'Feature',
     properties: {},
@@ -91,9 +100,9 @@ export const Sample: React.FC<SampleProps> = ({
         </div>
       </div>
       <Divider/>
-      <PropagationList propagations={ sample.propagations }/>
+      <PropagationList sampleFragmentRef={ sample }/>
     </div>
   );
 };
 
-export default Sample;
+export default SampleOverview;

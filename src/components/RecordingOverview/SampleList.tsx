@@ -1,16 +1,34 @@
 'use client';
 
 import ID from '@/components/ID';
-import { Sample } from '@/models/Sample';
+import { FragmentType, useFragment } from '@/graphql/fragment-masking';
+import { graphql } from '@/graphql/gql';
 import { Table } from 'flowbite-react';
 import Link from 'next/link';
 
 
+const SampleList_RecordingFragment = graphql(/* GraphQL */ `
+  fragment SampleList_RecordingFragment on Recording {
+    samples {
+      id
+      description
+      longitude
+      latitude
+      createdAt
+      propagations {
+        id
+      }
+    }
+  }
+`);
+
 export type SampleListProps = {
-  samples: Sample[];
+  recordingFragmentRef: FragmentType<typeof SampleList_RecordingFragment>
 }
 
-export const SampleList: React.FC<SampleListProps> = ({ samples }) => {
+export const SampleList: React.FC<SampleListProps> = ({ recordingFragmentRef }) => {
+  const query = useFragment(SampleList_RecordingFragment, recordingFragmentRef);
+
   return (
     <Table>
       <Table.Head>
@@ -27,7 +45,7 @@ export const SampleList: React.FC<SampleListProps> = ({ samples }) => {
       </Table.Head>
       <Table.Body className="divide-y">
         {
-          samples.map((sample: Sample) => (
+          query.samples.map((sample) => (
             <Table.Row key={ sample.id } className="bg-white dark:border-gray-700 dark:bg-gray-800">
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white"><ID>{ sample.id }</ID></Table.Cell>
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">{ sample.createdAt }</Table.Cell>
