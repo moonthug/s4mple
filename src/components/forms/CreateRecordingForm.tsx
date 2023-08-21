@@ -28,7 +28,6 @@ const CreateRecordingForm: React.FC = () => {
       className="flex flex-col gap-4"
       onSubmit={ (e) => {
         e.preventDefault();
-        debugger;
         createRecording({
           variables: {
             input: {
@@ -39,12 +38,11 @@ const CreateRecordingForm: React.FC = () => {
         })
           .then(({ data }) => {
             if (data) {
-              const { id } = data.createRecordings.recordings[0];
-              router.push(`/recordings/${ id }`);
+              if (!data) throw new Error('Couldnt create sample');
+              router.push(`/recordings/${ data?.createRecordings.recordings[0].id }`);
             }
           })
           .catch(e => {
-            debugger;
             toast.error(e.toString());
           });
       } }
@@ -58,7 +56,7 @@ const CreateRecordingForm: React.FC = () => {
         </div>
         <TextInput
           id="name"
-          placeholder="My new yeast recording"
+          placeholder="My new Yeast recording"
           required
         />
       </div>
@@ -66,15 +64,20 @@ const CreateRecordingForm: React.FC = () => {
         <div className="mb-2 block">
           <Label
             htmlFor="description"
-            value="My recording description"
+            value="Description"
           />
         </div>
         <TextInput
           id="description"
+          placeholder="My recording description..."
           required
         />
       </div>
-      <Button type="submit">Submit</Button>
+      <Button
+        type="submit"
+        isProcessing={ loading }
+        disabled={ loading }
+      >Submit</Button>
     </form>
   );
 };

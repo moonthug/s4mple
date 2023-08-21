@@ -30,7 +30,8 @@ CREATE (r2:Recording {
 CREATE (re1:Recipe {
   id:          're000000-0000-0000-0000-000000000001',
   name:        'Wort Recipe 1',
-  description: 'WORT',
+  description: 'Wort Recipe',
+  type:        'WORT',
   longitude:   -0.885666,
   latitude:    53.135087,
   createdAt:   datetime(),
@@ -50,7 +51,7 @@ CREATE (re3:Recipe {
   id:          're000000-0000-0000-0000-000000000003',
   name:        'Agar Recipe 1',
   description: 'Wort Recipe with Hops',
-  type:        'WORT',
+  type:        'AGAR',
   longitude:   -0.885666,
   latitude:    53.135087,
   createdAt:   datetime(),
@@ -172,9 +173,9 @@ CREATE (pr1)-[:HAS_PLATE]->(pl2)
 CREATE (pr2)-[:HAS_PLATE]->(pl3)
 CREATE (pr2)-[:HAS_PLATE]->(pl4)
 CREATE (pr3)-[:HAS_PLATE]->(pl5)
-CREATE (pl1)-[:HAS_PLATE]->(pl6)
-CREATE (pl1)-[:HAS_PLATE]->(pl7)
-CREATE (pl6)-[:HAS_PLATE]->(pl8)
+CREATE (pr3)-[:HAS_PLATE]->(pl6)
+CREATE (pr3)-[:HAS_PLATE]->(pl7)
+CREATE (pr3)-[:HAS_PLATE]->(pl8)
 
 CREATE (pl1)-[:HAS_RECIPE]->(re3)
 CREATE (pl2)-[:HAS_RECIPE]->(re3)

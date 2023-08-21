@@ -1,7 +1,6 @@
 import FAB from '@/components/FAB';
-import { RecordingList } from '@/components/RecordingList/RecordingList';
+import { RecordingList } from '@/features/RecordingList/RecordingList';
 import { graphql } from '@/graphql/gql';
-
 import { getClient } from '@/lib/apollo';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -25,7 +24,7 @@ export default async function Recordings() {
   return (
     <main>
       <RecordingList queryRef={ data }/>
-      
+
       <Link href="/recordings/new">
         <FAB
           icon={

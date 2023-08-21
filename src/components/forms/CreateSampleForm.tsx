@@ -1,77 +1,111 @@
 'use client';
 
-import { gql, useMutation } from '@apollo/client';
-import { Button, Label, TextInput } from 'flowbite-react';
-import { useRouter } from 'next/navigation';
-import React from 'react';
-import toast from 'react-hot-toast';
+import Barcode, { Renderer } from '@/components/Barcode';
+import { SampleType } from '@/graphql/graphql';
+import { Button, Label, Select, TextInput } from 'flowbite-react';
+import print from 'print-js';
+import React, { useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { LuPrinter, LuSave } from 'react-icons/lu';
+import { uppercaseFirst } from '../../utils/text';
 
 
-const CreateSample_Mutation = gql`
-  mutation CreateSample($input: [SampleCreateInput!]!) {
-    createSamples(input: $input) {
-      samples {
-        id
-      }
-    }
-  }
-`;
+export type CreateSampleFormData = {
+  description: string,
+  type: SampleType,
+  longitude: number,
+  latitude: number
+};
 
-const CreateSampleForm: React.FC = () => {
-  const [createSample, { data, loading, error }] = useMutation(CreateSample_Mutation);
+type CreateSampleFormProps = {
+  onSubmit: SubmitHandler<CreateSampleFormData>;
+}
 
-  const router = useRouter();
+const CreateSampleForm: React.FC<CreateSampleFormProps> = ({
+  onSubmit,
+}) => {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors }
+  } = useForm<CreateSampleFormData>();
+
+  const [location, setLocation] = useState([0, 0]);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLocation([position.coords.longitude, position.coords.latitude]);
+    });
+
+    navigator.geolocation.watchPosition(
+      (position) => {
+        setLocation([position.coords.longitude, position.coords.latitude]);
+      },
+      null,
+      { enableHighAccuracy: true }
+    );
+  }, []);
+
+  useEffect(() => {
+    setValue('longitude', location[0]);
+    setValue('latitude', location[1]);
+  }, [location]);
 
   return (
     <form
       className="flex flex-col gap-4"
-      onSubmit={ (e) => {
-        e.preventDefault();
-        debugger;
-        createSample({
-          variables: {
-            input: {
-              name: (e.currentTarget.name as any as { value: string }).value,
-              description: e.currentTarget.description.value
-            }
-          }
-        })
-          .then(({ data }) => {
-            const { id } = data.createSamples.samples[0];
-            router.push(`/samples/${ id }`);
-          })
-          .catch(e => {
-            debugger;
-            toast.error(e.toString());
-          });
-      } }
+      onSubmit={ handleSubmit(onSubmit) }
     >
       <div>
         <div className="mb-2 block">
-          <Label
-            htmlFor="name"
-            value="Name"
-          />
+          <Label htmlFor="description" value="Description"/>
         </div>
         <TextInput
-          id="name"
-          placeholder="My new yeast sample"
-          required
+          placeholder="My sample description..."
+          { ...register('description') }
         />
       </div>
       <div>
         <div className="mb-2 block">
-          <Label
-            htmlFor="description"
-            value="My sample description"
-          />
+          <Label htmlFor="type" value="Type"/>
         </div>
-        <TextInput
-          id="description"
+        <Select
           required
-        />
+          { ...register('type') }
+        >
+          { Object.values(SampleType).map(sampleType => (
+            <option key={ sampleType } value={ sampleType }>{ uppercaseFirst(sampleType) }</option>))
+          }
+        </Select>
       </div>
-      <Button type="submit">Submit</Button>
+      <div>
+        <div className="mb-2 block">
+          <Label value="Location"/>
+        </div>
+        <pre>{ JSON.stringify(location) }</pre>
+      </div>
+      <div>
+        <Barcode options={ { format: 'code128' } } renderer={ Renderer.canvas } value="S00001"/>
+      </div>
+      <div className="flex gap-4 justify-end">
+        <Button
+          color="gray"
+          onClick={ () => {
+            print('barcode', 'html');
+          } }
+        >
+          <LuPrinter className="inline mr-3 h-5 w-5"/>
+          Print
+        </Button>
+        <Button
+          type="submit"
+          gradientDuoTone="greenToBlue"
+        >
+          <LuSave className="inline mr-3 h-5 w-5"/>
+          Save
+        </Button>
+      </div>
     </form>
   );
 };

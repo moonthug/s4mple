@@ -1,12 +1,11 @@
-import FAB from '@/components/FAB';
-import RecordingOverview from '@/components/RecordingOverview/RecordingOverview';
+import RecordingOverview from '@/features/RecordingOverview/RecordingOverview';
 import { graphql } from '@/graphql/gql';
 import { getClient } from '@/lib/apollo';
 import { Metadata } from 'next';
-import Link from 'next/link';
 import React from 'react';
-import { MdExposurePlus1 } from 'react-icons/md';
 
+
+export const revalidate = 0;
 
 const GetRecordingById_Query = graphql(`
   query GetRecordingById_Query($id: ID!) {
@@ -33,16 +32,6 @@ export default async function RecordingPage({ params }: {
   return (
     <main>
       <RecordingOverview recordingFragmentRef={ data.recordings[0] }/>
-      <Link href="/samples/new">
-        <FAB
-          icon={
-            () => <MdExposurePlus1
-              className="inline"
-              color="#fff"
-              size={ 24 }
-            />
-          }/>
-      </Link>
     </main>
   );
 }

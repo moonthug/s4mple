@@ -71,6 +71,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           <FlowbiteNavbar.Link
             href="/recipes"
             active={ isRouteActive('recipes', segment) }>Recipes</FlowbiteNavbar.Link>
+          <FlowbiteNavbar.Link
+            href="/cell-count"
+            active={ isRouteActive('cell-count', segment) }>Cell Count</FlowbiteNavbar.Link>
         </FlowbiteNavbar.Collapse>
       }
     </FlowbiteNavbar>

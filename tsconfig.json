@@ -19,8 +19,8 @@
       "@/constants/*": [
         "src/constants/*"
       ],
-      "@/context/*": [
-        "src/context/*"
+      "@/features/*": [
+        "src/features/*"
       ],
       "@/graphql/*": [
         "src/graphql/*"

@@ -1,7 +1,7 @@
-import SampleOverview from '@/components/SampleOverview/SampleOverview';
 import { graphql } from '@/graphql/gql';
 import { getClient } from '@/lib/apollo';
 import { Metadata } from 'next';
+import SampleOverview from '../../../features/SampleOverview/SampleOverview';
 
 
 const GetSampleById_Query = graphql(`

@@ -1,4 +1,4 @@
-import NavBar from '@/components/NavBar';
+import NavBar from '@/features/NavBar';
 import { ApolloProvider } from '@/lib/apollo';
 import { Metadata } from 'next';
 import { getServerSession } from 'next-auth/next';

@@ -1,17 +1,18 @@
 'use client';
 
 import Divider from '@/components/Divider';
-import EntityMap from '@/components/EntityMap';
-import RecordingDendrogram from '@/components/RecordingOverview/RecordingDendrogram';
-import { SampleList } from '@/components/RecordingOverview/SampleList';
 import EntityTitleId from '@/components/text/EntityTitleId';
+import RecordingNetworkGraph from '@/features/RecordingOverview/RecordingNetworkGraph';
+import RecordingSampleMap from '@/features/RecordingOverview/RecordingSampleMap';
 import { FragmentType, useFragment } from '@/graphql/fragment-masking';
 import { graphql } from '@/graphql/gql';
-import * as Turf from '@turf/turf';
-import { Tabs } from 'flowbite-react';
-import React from 'react';
+import { Button, Tabs } from 'flowbite-react';
+import React, { useState } from 'react';
+import { LuTestTube2 } from 'react-icons/lu';
 import { PiGraphFill, PiMapPinBold } from 'react-icons/pi';
-import { CircleLayer, Layer, Source } from 'react-map-gl';
+import { CircleLayer } from 'react-map-gl';
+import CreateSampleModal from './CreateSampleModal';
+import { SampleList } from './SampleList';
 
 
 const RecordingOverview_RecordingFragment = graphql(/* GraphQL */ `
@@ -21,15 +22,11 @@ const RecordingOverview_RecordingFragment = graphql(/* GraphQL */ `
     description
     createdAt
     updatedAt
-    samples {
-      latitude
-      longitude
-    }
-    ...RecordingDendrogram_RecordingFragment
+    ...RecordingSampleMap_RecordingFragment
+    ...RecordingNetworkGraph_RecordingFragment
     ...SampleList_RecordingFragment
   }
 `);
-
 
 export const sampleLayer: CircleLayer = {
   id: 'sample-position',
@@ -50,32 +47,37 @@ export const RecordingOverview: React.FC<RecordingProps> = ({
 }) => {
   const recording = useFragment(RecordingOverview_RecordingFragment, recordingFragmentRef);
 
-  const sampleFeatures: GeoJSON.FeatureCollection<GeoJSON.Point> = {
-    type: 'FeatureCollection',
-    features: recording.samples.map(sample => ({
-      type: 'Feature',
-      properties: {},
-      geometry: {
-        type: 'Point',
-        coordinates: [sample.longitude, sample.latitude]
-      }
-    }))
-  };
-
-  const centrePoint = sampleFeatures.features.length > 0
-    ? Turf.center(sampleFeatures)
-    : Turf.point([0, 0]);
+  const [isCreateSampleModalOpen, setIsCreateSampleModalOpen] = useState(false);
 
   return (
     <div>
+
+      <CreateSampleModal
+        isOpen={ isCreateSampleModalOpen }
+        recordingId={ recording.id }
+        setIsOpen={ setIsCreateSampleModalOpen }
+      />
+
       <div className="flex gap-8">
         <div className="flex-grow">
           <EntityTitleId id={ recording.id } title={ recording.name }/>
+
           <dl>
             <dt className="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Description</dt>
             <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{ recording.description } fdsa fads fdsaf dsafsdafsdafdsafdsafsadfasdfasdfsdadfas</dd>
           </dl>
+
+          <Button
+            gradientDuoTone="greenToBlue"
+            outline
+            onClick={ () => setIsCreateSampleModalOpen(true) }
+          >
+            <LuTestTube2 className="mr-3 h-5 w-5"/>
+            Create Sample
+          </Button>
+
         </div>
+
         <div className="flex-none">
           <Tabs.Group
             aria-label="Tabs with underline"
@@ -86,22 +88,14 @@ export const RecordingOverview: React.FC<RecordingProps> = ({
               icon={ PiMapPinBold }
               title="Map"
             >
-              <EntityMap
-                longitude={ centrePoint.geometry.coordinates[0] }
-                latitude={ centrePoint.geometry.coordinates[1] }
-                zoom={ 14 }
-              >
-                <Source id="samples" type="geojson" data={ sampleFeatures }>
-                  <Layer { ...sampleLayer } />
-                </Source>
-              </EntityMap>
+              <RecordingSampleMap recordingFragmentRef={ recording }/>
             </Tabs.Item>
             <Tabs.Item
               active
               icon={ PiGraphFill }
               title="Nodes"
             >
-              <RecordingDendrogram
+              <RecordingNetworkGraph
                 recordingFragmentRef={ recording }
                 width={ 600 }
                 height={ 300 }
@@ -110,7 +104,9 @@ export const RecordingOverview: React.FC<RecordingProps> = ({
           </Tabs.Group>
         </div>
       </div>
+
       <Divider/>
+
       <SampleList recordingFragmentRef={ recording }/>
     </div>
   );

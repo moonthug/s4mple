@@ -28,11 +28,19 @@ type Recording {
   samples: [Sample!]! @relationship(type: "HAS_SAMPLE", direction: OUT)
 }
 
+enum SampleType {
+  SWAB
+  OBJECT
+  BEER
+  FERMENTATION
+}
+
 type Sample {
   id: ID! @id(autogenerate: true)
   description: String
-  longitude: Float!
-  latitude: Float!
+  type: SampleType!
+  longitude: Float
+  latitude: Float
 
   createdAt: DateTime! @timestamp(operations: [CREATE])
   updatedAt: DateTime! @timestamp(operations: [CREATE, UPDATE])
@@ -57,12 +65,13 @@ type Propagation {
 
   observations: [Observation!]! @relationship(type: "HAS_OBSERVATION", direction: OUT)
   plates: [Plate!]! @relationship(type: "HAS_PLATE", direction: OUT)
+  propagations: [Propagation!]! @relationship(type: "HAS_PROPAGATION", direction: OUT)
   recipe: Recipe! @relationship(type: "HAS_RECIPE", direction: OUT)
 
-  sample: Sample! @relationship(type: "HAS_SAMPLE", direction: IN)
+  plate: Plate @relationship(type: "HAS_PROPAGATION", direction: IN)
+  propagation: Propagation @relationship(type: "HAS_PROPAGATION", direction: IN)
+  sample: Sample @relationship(type: "HAS_PROPAGATION", direction: IN)
 }
-
-union PlateParent = Propagation | Plate
 
 type Plate {
   id: ID! @id(autogenerate: true)
@@ -75,15 +84,12 @@ type Plate {
   #        @settable(onCreate: false, onUpdate: false)
 
   observations: [Observation!]! @relationship(type: "HAS_OBSERVATION", direction: OUT)
-  plates: [Plate!]! @relationship(type: "HAS_PLATE", direction: OUT)
+  propagations: [Propagation!]! @relationship(type: "HAS_PROPAGATION", direction: OUT)
   recipe: Recipe! @relationship(type: "HAS_RECIPE", direction: OUT)
-
-  parent: PlateParent! @relationship(type: "HAS_PLATE", direction: IN)
-  propagation: Propagation! @relationship(type: "HAS_PROPAGATION", direction: IN)
 }
 
 enum RecipeType {
-  PROPAGATION
+  WORT
   PLATE
 }
 
@@ -104,9 +110,8 @@ type Recipe {
   parent: RecipeParent! @relationship(type: "HAS_RECIPE", direction: IN)
 }
 
-union ObservationParent = Sample | Propagation | Plate
+union ObservationParent = Propagation | Plate
 enum ObservationType {
-  SAMPLE
   PROPAGATION
   PLATE
 }

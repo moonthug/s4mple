@@ -87,12 +87,12 @@ export type DeleteInfo = {
   relationshipsDeleted: Scalars['Int']['output'];
 };
 
-export type FloatAggregateSelectionNonNullable = {
-  __typename?: 'FloatAggregateSelectionNonNullable';
-  average: Scalars['Float']['output'];
-  max: Scalars['Float']['output'];
-  min: Scalars['Float']['output'];
-  sum: Scalars['Float']['output'];
+export type FloatAggregateSelectionNullable = {
+  __typename?: 'FloatAggregateSelectionNullable';
+  average?: Maybe<Scalars['Float']['output']>;
+  max?: Maybe<Scalars['Float']['output']>;
+  min?: Maybe<Scalars['Float']['output']>;
+  sum?: Maybe<Scalars['Float']['output']>;
 };
 
 export type IdAggregateSelectionNonNullable = {
@@ -388,18 +388,16 @@ export type ObservationOptions = {
   sort?: InputMaybe<Array<ObservationSort>>;
 };
 
-export type ObservationParent = Plate | Propagation | Sample;
+export type ObservationParent = Plate | Propagation;
 
 export type ObservationParentConnectInput = {
   Plate?: InputMaybe<ObservationParentPlateConnectFieldInput>;
   Propagation?: InputMaybe<ObservationParentPropagationConnectFieldInput>;
-  Sample?: InputMaybe<ObservationParentSampleConnectFieldInput>;
 };
 
 export type ObservationParentConnectOrCreateInput = {
   Plate?: InputMaybe<ObservationParentPlateConnectOrCreateFieldInput>;
   Propagation?: InputMaybe<ObservationParentPropagationConnectOrCreateFieldInput>;
-  Sample?: InputMaybe<ObservationParentSampleConnectOrCreateFieldInput>;
 };
 
 export type ObservationParentConnection = {
@@ -412,31 +410,26 @@ export type ObservationParentConnection = {
 export type ObservationParentConnectionWhere = {
   Plate?: InputMaybe<ObservationParentPlateConnectionWhere>;
   Propagation?: InputMaybe<ObservationParentPropagationConnectionWhere>;
-  Sample?: InputMaybe<ObservationParentSampleConnectionWhere>;
 };
 
 export type ObservationParentCreateFieldInput = {
   Plate?: InputMaybe<ObservationParentPlateCreateFieldInput>;
   Propagation?: InputMaybe<ObservationParentPropagationCreateFieldInput>;
-  Sample?: InputMaybe<ObservationParentSampleCreateFieldInput>;
 };
 
 export type ObservationParentCreateInput = {
   Plate?: InputMaybe<ObservationParentPlateFieldInput>;
   Propagation?: InputMaybe<ObservationParentPropagationFieldInput>;
-  Sample?: InputMaybe<ObservationParentSampleFieldInput>;
 };
 
 export type ObservationParentDeleteInput = {
   Plate?: InputMaybe<ObservationParentPlateDeleteFieldInput>;
   Propagation?: InputMaybe<ObservationParentPropagationDeleteFieldInput>;
-  Sample?: InputMaybe<ObservationParentSampleDeleteFieldInput>;
 };
 
 export type ObservationParentDisconnectInput = {
   Plate?: InputMaybe<ObservationParentPlateDisconnectFieldInput>;
   Propagation?: InputMaybe<ObservationParentPropagationDisconnectFieldInput>;
-  Sample?: InputMaybe<ObservationParentSampleDisconnectFieldInput>;
 };
 
 export type ObservationParentPlateConnectFieldInput = {
@@ -555,71 +548,14 @@ export type ObservationParentRelationship = {
   node: ObservationParent;
 };
 
-export type ObservationParentSampleConnectFieldInput = {
-  connect?: InputMaybe<SampleConnectInput>;
-  where?: InputMaybe<SampleConnectWhere>;
-};
-
-export type ObservationParentSampleConnectOrCreateFieldInput = {
-  onCreate: ObservationParentSampleConnectOrCreateFieldInputOnCreate;
-  where: SampleConnectOrCreateWhere;
-};
-
-export type ObservationParentSampleConnectOrCreateFieldInputOnCreate = {
-  node: SampleOnCreateInput;
-};
-
-export type ObservationParentSampleConnectionWhere = {
-  AND?: InputMaybe<Array<ObservationParentSampleConnectionWhere>>;
-  NOT?: InputMaybe<ObservationParentSampleConnectionWhere>;
-  OR?: InputMaybe<Array<ObservationParentSampleConnectionWhere>>;
-  node?: InputMaybe<SampleWhere>;
-};
-
-export type ObservationParentSampleCreateFieldInput = {
-  node: SampleCreateInput;
-};
-
-export type ObservationParentSampleDeleteFieldInput = {
-  delete?: InputMaybe<SampleDeleteInput>;
-  where?: InputMaybe<ObservationParentSampleConnectionWhere>;
-};
-
-export type ObservationParentSampleDisconnectFieldInput = {
-  disconnect?: InputMaybe<SampleDisconnectInput>;
-  where?: InputMaybe<ObservationParentSampleConnectionWhere>;
-};
-
-export type ObservationParentSampleFieldInput = {
-  connect?: InputMaybe<ObservationParentSampleConnectFieldInput>;
-  connectOrCreate?: InputMaybe<ObservationParentSampleConnectOrCreateFieldInput>;
-  create?: InputMaybe<ObservationParentSampleCreateFieldInput>;
-};
-
-export type ObservationParentSampleUpdateConnectionInput = {
-  node?: InputMaybe<SampleUpdateInput>;
-};
-
-export type ObservationParentSampleUpdateFieldInput = {
-  connect?: InputMaybe<ObservationParentSampleConnectFieldInput>;
-  connectOrCreate?: InputMaybe<ObservationParentSampleConnectOrCreateFieldInput>;
-  create?: InputMaybe<ObservationParentSampleCreateFieldInput>;
-  delete?: InputMaybe<ObservationParentSampleDeleteFieldInput>;
-  disconnect?: InputMaybe<ObservationParentSampleDisconnectFieldInput>;
-  update?: InputMaybe<ObservationParentSampleUpdateConnectionInput>;
-  where?: InputMaybe<ObservationParentSampleConnectionWhere>;
-};
-
 export type ObservationParentUpdateInput = {
   Plate?: InputMaybe<ObservationParentPlateUpdateFieldInput>;
   Propagation?: InputMaybe<ObservationParentPropagationUpdateFieldInput>;
-  Sample?: InputMaybe<ObservationParentSampleUpdateFieldInput>;
 };
 
 export type ObservationParentWhere = {
   Plate?: InputMaybe<PlateWhere>;
   Propagation?: InputMaybe<PropagationWhere>;
-  Sample?: InputMaybe<SampleWhere>;
 };
 
 export type ObservationRelationInput = {
@@ -637,8 +573,7 @@ export type ObservationSort = {
 
 export enum ObservationType {
   Plate = 'PLATE',
-  Propagation = 'PROPAGATION',
-  Sample = 'SAMPLE'
+  Propagation = 'PROPAGATION'
 }
 
 export type ObservationUniqueWhere = {
@@ -707,14 +642,9 @@ export type Plate = {
   observations: Array<Observation>;
   observationsAggregate?: Maybe<PlateObservationObservationsAggregationSelection>;
   observationsConnection: PlateObservationsConnection;
-  parent: PlateParent;
-  parentConnection: PlateParentConnection;
-  plates: Array<Plate>;
-  platesAggregate?: Maybe<PlatePlatePlatesAggregationSelection>;
-  platesConnection: PlatePlatesConnection;
-  propagation: Propagation;
-  propagationAggregate?: Maybe<PlatePropagationPropagationAggregationSelection>;
-  propagationConnection: PlatePropagationConnection;
+  propagations: Array<Propagation>;
+  propagationsAggregate?: Maybe<PlatePropagationPropagationsAggregationSelection>;
+  propagationsConnection: PlatePropagationsConnection;
   recipe: Recipe;
   recipeAggregate?: Maybe<PlateRecipeRecipeAggregationSelection>;
   recipeConnection: PlateRecipeConnection;
@@ -744,62 +674,25 @@ export type PlateObservationsConnectionArgs = {
 };
 
 
-export type PlateParentArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>;
-  options?: InputMaybe<QueryOptions>;
-  where?: InputMaybe<PlateParentWhere>;
-};
-
-
-export type PlateParentConnectionArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  directed?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<PlateParentConnectionWhere>;
-};
-
-
-export type PlatePlatesArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>;
-  options?: InputMaybe<PlateOptions>;
-  where?: InputMaybe<PlateWhere>;
-};
-
-
-export type PlatePlatesAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<PlateWhere>;
-};
-
-
-export type PlatePlatesConnectionArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  directed?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  sort?: InputMaybe<Array<PlatePlatesConnectionSort>>;
-  where?: InputMaybe<PlatePlatesConnectionWhere>;
-};
-
-
-export type PlatePropagationArgs = {
+export type PlatePropagationsArgs = {
   directed?: InputMaybe<Scalars['Boolean']['input']>;
   options?: InputMaybe<PropagationOptions>;
   where?: InputMaybe<PropagationWhere>;
 };
 
 
-export type PlatePropagationAggregateArgs = {
+export type PlatePropagationsAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<PropagationWhere>;
 };
 
 
-export type PlatePropagationConnectionArgs = {
+export type PlatePropagationsConnectionArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   directed?: InputMaybe<Scalars['Boolean']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
-  sort?: InputMaybe<Array<PlatePropagationConnectionSort>>;
-  where?: InputMaybe<PlatePropagationConnectionWhere>;
+  sort?: InputMaybe<Array<PlatePropagationsConnectionSort>>;
+  where?: InputMaybe<PlatePropagationsConnectionWhere>;
 };
 
 
@@ -835,17 +728,13 @@ export type PlateAggregateSelection = {
 
 export type PlateConnectInput = {
   observations?: InputMaybe<Array<PlateObservationsConnectFieldInput>>;
-  parent?: InputMaybe<PlateParentConnectInput>;
-  plates?: InputMaybe<Array<PlatePlatesConnectFieldInput>>;
-  propagation?: InputMaybe<PlatePropagationConnectFieldInput>;
+  propagations?: InputMaybe<Array<PlatePropagationsConnectFieldInput>>;
   recipe?: InputMaybe<PlateRecipeConnectFieldInput>;
 };
 
 export type PlateConnectOrCreateInput = {
   observations?: InputMaybe<Array<PlateObservationsConnectOrCreateFieldInput>>;
-  parent?: InputMaybe<PlateParentConnectOrCreateInput>;
-  plates?: InputMaybe<Array<PlatePlatesConnectOrCreateFieldInput>>;
-  propagation?: InputMaybe<PlatePropagationConnectOrCreateFieldInput>;
+  propagations?: InputMaybe<Array<PlatePropagationsConnectOrCreateFieldInput>>;
   recipe?: InputMaybe<PlateRecipeConnectOrCreateFieldInput>;
 };
 
@@ -860,25 +749,19 @@ export type PlateConnectWhere = {
 export type PlateCreateInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   observations?: InputMaybe<PlateObservationsFieldInput>;
-  parent?: InputMaybe<PlateParentCreateInput>;
-  plates?: InputMaybe<PlatePlatesFieldInput>;
-  propagation?: InputMaybe<PlatePropagationFieldInput>;
+  propagations?: InputMaybe<PlatePropagationsFieldInput>;
   recipe?: InputMaybe<PlateRecipeFieldInput>;
 };
 
 export type PlateDeleteInput = {
   observations?: InputMaybe<Array<PlateObservationsDeleteFieldInput>>;
-  parent?: InputMaybe<PlateParentDeleteInput>;
-  plates?: InputMaybe<Array<PlatePlatesDeleteFieldInput>>;
-  propagation?: InputMaybe<PlatePropagationDeleteFieldInput>;
+  propagations?: InputMaybe<Array<PlatePropagationsDeleteFieldInput>>;
   recipe?: InputMaybe<PlateRecipeDeleteFieldInput>;
 };
 
 export type PlateDisconnectInput = {
   observations?: InputMaybe<Array<PlateObservationsDisconnectFieldInput>>;
-  parent?: InputMaybe<PlateParentDisconnectInput>;
-  plates?: InputMaybe<Array<PlatePlatesDisconnectFieldInput>>;
-  propagation?: InputMaybe<PlatePropagationDisconnectFieldInput>;
+  propagations?: InputMaybe<Array<PlatePropagationsDisconnectFieldInput>>;
   recipe?: InputMaybe<PlateRecipeDisconnectFieldInput>;
 };
 
@@ -1040,387 +923,89 @@ export type PlateOptions = {
   sort?: InputMaybe<Array<PlateSort>>;
 };
 
-export type PlateParent = Plate | Propagation;
-
-export type PlateParentConnectInput = {
-  Plate?: InputMaybe<PlateParentPlateConnectFieldInput>;
-  Propagation?: InputMaybe<PlateParentPropagationConnectFieldInput>;
-};
-
-export type PlateParentConnectOrCreateInput = {
-  Plate?: InputMaybe<PlateParentPlateConnectOrCreateFieldInput>;
-  Propagation?: InputMaybe<PlateParentPropagationConnectOrCreateFieldInput>;
-};
-
-export type PlateParentConnection = {
-  __typename?: 'PlateParentConnection';
-  edges: Array<PlateParentRelationship>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type PlateParentConnectionWhere = {
-  Plate?: InputMaybe<PlateParentPlateConnectionWhere>;
-  Propagation?: InputMaybe<PlateParentPropagationConnectionWhere>;
-};
-
-export type PlateParentCreateFieldInput = {
-  Plate?: InputMaybe<PlateParentPlateCreateFieldInput>;
-  Propagation?: InputMaybe<PlateParentPropagationCreateFieldInput>;
-};
-
-export type PlateParentCreateInput = {
-  Plate?: InputMaybe<PlateParentPlateFieldInput>;
-  Propagation?: InputMaybe<PlateParentPropagationFieldInput>;
-};
-
-export type PlateParentDeleteInput = {
-  Plate?: InputMaybe<PlateParentPlateDeleteFieldInput>;
-  Propagation?: InputMaybe<PlateParentPropagationDeleteFieldInput>;
-};
-
-export type PlateParentDisconnectInput = {
-  Plate?: InputMaybe<PlateParentPlateDisconnectFieldInput>;
-  Propagation?: InputMaybe<PlateParentPropagationDisconnectFieldInput>;
-};
-
-export type PlateParentPlateConnectFieldInput = {
-  connect?: InputMaybe<PlateConnectInput>;
-  where?: InputMaybe<PlateConnectWhere>;
-};
-
-export type PlateParentPlateConnectOrCreateFieldInput = {
-  onCreate: PlateParentPlateConnectOrCreateFieldInputOnCreate;
-  where: PlateConnectOrCreateWhere;
-};
-
-export type PlateParentPlateConnectOrCreateFieldInputOnCreate = {
-  node: PlateOnCreateInput;
-};
-
-export type PlateParentPlateConnectionWhere = {
-  AND?: InputMaybe<Array<PlateParentPlateConnectionWhere>>;
-  NOT?: InputMaybe<PlateParentPlateConnectionWhere>;
-  OR?: InputMaybe<Array<PlateParentPlateConnectionWhere>>;
-  node?: InputMaybe<PlateWhere>;
-};
-
-export type PlateParentPlateCreateFieldInput = {
-  node: PlateCreateInput;
-};
-
-export type PlateParentPlateDeleteFieldInput = {
-  delete?: InputMaybe<PlateDeleteInput>;
-  where?: InputMaybe<PlateParentPlateConnectionWhere>;
-};
-
-export type PlateParentPlateDisconnectFieldInput = {
-  disconnect?: InputMaybe<PlateDisconnectInput>;
-  where?: InputMaybe<PlateParentPlateConnectionWhere>;
-};
-
-export type PlateParentPlateFieldInput = {
-  connect?: InputMaybe<PlateParentPlateConnectFieldInput>;
-  connectOrCreate?: InputMaybe<PlateParentPlateConnectOrCreateFieldInput>;
-  create?: InputMaybe<PlateParentPlateCreateFieldInput>;
-};
-
-export type PlateParentPlateUpdateConnectionInput = {
-  node?: InputMaybe<PlateUpdateInput>;
-};
-
-export type PlateParentPlateUpdateFieldInput = {
-  connect?: InputMaybe<PlateParentPlateConnectFieldInput>;
-  connectOrCreate?: InputMaybe<PlateParentPlateConnectOrCreateFieldInput>;
-  create?: InputMaybe<PlateParentPlateCreateFieldInput>;
-  delete?: InputMaybe<PlateParentPlateDeleteFieldInput>;
-  disconnect?: InputMaybe<PlateParentPlateDisconnectFieldInput>;
-  update?: InputMaybe<PlateParentPlateUpdateConnectionInput>;
-  where?: InputMaybe<PlateParentPlateConnectionWhere>;
-};
-
-export type PlateParentPropagationConnectFieldInput = {
-  connect?: InputMaybe<PropagationConnectInput>;
-  where?: InputMaybe<PropagationConnectWhere>;
-};
-
-export type PlateParentPropagationConnectOrCreateFieldInput = {
-  onCreate: PlateParentPropagationConnectOrCreateFieldInputOnCreate;
-  where: PropagationConnectOrCreateWhere;
-};
-
-export type PlateParentPropagationConnectOrCreateFieldInputOnCreate = {
-  node: PropagationOnCreateInput;
-};
-
-export type PlateParentPropagationConnectionWhere = {
-  AND?: InputMaybe<Array<PlateParentPropagationConnectionWhere>>;
-  NOT?: InputMaybe<PlateParentPropagationConnectionWhere>;
-  OR?: InputMaybe<Array<PlateParentPropagationConnectionWhere>>;
-  node?: InputMaybe<PropagationWhere>;
-};
-
-export type PlateParentPropagationCreateFieldInput = {
-  node: PropagationCreateInput;
-};
-
-export type PlateParentPropagationDeleteFieldInput = {
-  delete?: InputMaybe<PropagationDeleteInput>;
-  where?: InputMaybe<PlateParentPropagationConnectionWhere>;
-};
-
-export type PlateParentPropagationDisconnectFieldInput = {
-  disconnect?: InputMaybe<PropagationDisconnectInput>;
-  where?: InputMaybe<PlateParentPropagationConnectionWhere>;
-};
-
-export type PlateParentPropagationFieldInput = {
-  connect?: InputMaybe<PlateParentPropagationConnectFieldInput>;
-  connectOrCreate?: InputMaybe<PlateParentPropagationConnectOrCreateFieldInput>;
-  create?: InputMaybe<PlateParentPropagationCreateFieldInput>;
-};
-
-export type PlateParentPropagationUpdateConnectionInput = {
-  node?: InputMaybe<PropagationUpdateInput>;
-};
-
-export type PlateParentPropagationUpdateFieldInput = {
-  connect?: InputMaybe<PlateParentPropagationConnectFieldInput>;
-  connectOrCreate?: InputMaybe<PlateParentPropagationConnectOrCreateFieldInput>;
-  create?: InputMaybe<PlateParentPropagationCreateFieldInput>;
-  delete?: InputMaybe<PlateParentPropagationDeleteFieldInput>;
-  disconnect?: InputMaybe<PlateParentPropagationDisconnectFieldInput>;
-  update?: InputMaybe<PlateParentPropagationUpdateConnectionInput>;
-  where?: InputMaybe<PlateParentPropagationConnectionWhere>;
-};
-
-export type PlateParentRelationship = {
-  __typename?: 'PlateParentRelationship';
-  cursor: Scalars['String']['output'];
-  node: PlateParent;
-};
-
-export type PlateParentUpdateInput = {
-  Plate?: InputMaybe<PlateParentPlateUpdateFieldInput>;
-  Propagation?: InputMaybe<PlateParentPropagationUpdateFieldInput>;
-};
-
-export type PlateParentWhere = {
-  Plate?: InputMaybe<PlateWhere>;
-  Propagation?: InputMaybe<PropagationWhere>;
-};
-
-export type PlatePlatePlatesAggregationSelection = {
-  __typename?: 'PlatePlatePlatesAggregationSelection';
+export type PlatePropagationPropagationsAggregationSelection = {
+  __typename?: 'PlatePropagationPropagationsAggregationSelection';
   count: Scalars['Int']['output'];
-  node?: Maybe<PlatePlatePlatesNodeAggregateSelection>;
+  node?: Maybe<PlatePropagationPropagationsNodeAggregateSelection>;
 };
 
-export type PlatePlatePlatesNodeAggregateSelection = {
-  __typename?: 'PlatePlatePlatesNodeAggregateSelection';
+export type PlatePropagationPropagationsNodeAggregateSelection = {
+  __typename?: 'PlatePropagationPropagationsNodeAggregateSelection';
   createdAt: DateTimeAggregateSelectionNonNullable;
-  description: StringAggregateSelectionNullable;
   id: IdAggregateSelectionNonNullable;
   updatedAt: DateTimeAggregateSelectionNonNullable;
 };
 
-export type PlatePlatesAggregateInput = {
-  AND?: InputMaybe<Array<PlatePlatesAggregateInput>>;
-  NOT?: InputMaybe<PlatePlatesAggregateInput>;
-  OR?: InputMaybe<Array<PlatePlatesAggregateInput>>;
+export type PlatePropagationsAggregateInput = {
+  AND?: InputMaybe<Array<PlatePropagationsAggregateInput>>;
+  NOT?: InputMaybe<PlatePropagationsAggregateInput>;
+  OR?: InputMaybe<Array<PlatePropagationsAggregateInput>>;
   count?: InputMaybe<Scalars['Int']['input']>;
   count_GT?: InputMaybe<Scalars['Int']['input']>;
   count_GTE?: InputMaybe<Scalars['Int']['input']>;
   count_LT?: InputMaybe<Scalars['Int']['input']>;
   count_LTE?: InputMaybe<Scalars['Int']['input']>;
-  node?: InputMaybe<PlatePlatesNodeAggregationWhereInput>;
+  node?: InputMaybe<PlatePropagationsNodeAggregationWhereInput>;
 };
 
-export type PlatePlatesConnectFieldInput = {
-  connect?: InputMaybe<Array<PlateConnectInput>>;
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
-  overwrite?: Scalars['Boolean']['input'];
-  where?: InputMaybe<PlateConnectWhere>;
-};
-
-export type PlatePlatesConnectOrCreateFieldInput = {
-  onCreate: PlatePlatesConnectOrCreateFieldInputOnCreate;
-  where: PlateConnectOrCreateWhere;
-};
-
-export type PlatePlatesConnectOrCreateFieldInputOnCreate = {
-  node: PlateOnCreateInput;
-};
-
-export type PlatePlatesConnection = {
-  __typename?: 'PlatePlatesConnection';
-  edges: Array<PlatePlatesRelationship>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type PlatePlatesConnectionSort = {
-  node?: InputMaybe<PlateSort>;
-};
-
-export type PlatePlatesConnectionWhere = {
-  AND?: InputMaybe<Array<PlatePlatesConnectionWhere>>;
-  NOT?: InputMaybe<PlatePlatesConnectionWhere>;
-  OR?: InputMaybe<Array<PlatePlatesConnectionWhere>>;
-  node?: InputMaybe<PlateWhere>;
-};
-
-export type PlatePlatesCreateFieldInput = {
-  node: PlateCreateInput;
-};
-
-export type PlatePlatesDeleteFieldInput = {
-  delete?: InputMaybe<PlateDeleteInput>;
-  where?: InputMaybe<PlatePlatesConnectionWhere>;
-};
-
-export type PlatePlatesDisconnectFieldInput = {
-  disconnect?: InputMaybe<PlateDisconnectInput>;
-  where?: InputMaybe<PlatePlatesConnectionWhere>;
-};
-
-export type PlatePlatesFieldInput = {
-  connect?: InputMaybe<Array<PlatePlatesConnectFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<PlatePlatesConnectOrCreateFieldInput>>;
-  create?: InputMaybe<Array<PlatePlatesCreateFieldInput>>;
-};
-
-export type PlatePlatesNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<PlatePlatesNodeAggregationWhereInput>>;
-  NOT?: InputMaybe<PlatePlatesNodeAggregationWhereInput>;
-  OR?: InputMaybe<Array<PlatePlatesNodeAggregationWhereInput>>;
-  createdAt_MAX_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
-  createdAt_MAX_GT?: InputMaybe<Scalars['DateTime']['input']>;
-  createdAt_MAX_GTE?: InputMaybe<Scalars['DateTime']['input']>;
-  createdAt_MAX_LT?: InputMaybe<Scalars['DateTime']['input']>;
-  createdAt_MAX_LTE?: InputMaybe<Scalars['DateTime']['input']>;
-  createdAt_MIN_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
-  createdAt_MIN_GT?: InputMaybe<Scalars['DateTime']['input']>;
-  createdAt_MIN_GTE?: InputMaybe<Scalars['DateTime']['input']>;
-  createdAt_MIN_LT?: InputMaybe<Scalars['DateTime']['input']>;
-  createdAt_MIN_LTE?: InputMaybe<Scalars['DateTime']['input']>;
-  description_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
-  description_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
-  description_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
-  description_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
-  description_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
-  description_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
-  description_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
-  description_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
-  description_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
-  description_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
-  description_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
-  description_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
-  description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
-  description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
-  description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
-  updatedAt_MAX_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
-  updatedAt_MAX_GT?: InputMaybe<Scalars['DateTime']['input']>;
-  updatedAt_MAX_GTE?: InputMaybe<Scalars['DateTime']['input']>;
-  updatedAt_MAX_LT?: InputMaybe<Scalars['DateTime']['input']>;
-  updatedAt_MAX_LTE?: InputMaybe<Scalars['DateTime']['input']>;
-  updatedAt_MIN_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
-  updatedAt_MIN_GT?: InputMaybe<Scalars['DateTime']['input']>;
-  updatedAt_MIN_GTE?: InputMaybe<Scalars['DateTime']['input']>;
-  updatedAt_MIN_LT?: InputMaybe<Scalars['DateTime']['input']>;
-  updatedAt_MIN_LTE?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export type PlatePlatesRelationship = {
-  __typename?: 'PlatePlatesRelationship';
-  cursor: Scalars['String']['output'];
-  node: Plate;
-};
-
-export type PlatePlatesUpdateConnectionInput = {
-  node?: InputMaybe<PlateUpdateInput>;
-};
-
-export type PlatePlatesUpdateFieldInput = {
-  connect?: InputMaybe<Array<PlatePlatesConnectFieldInput>>;
-  connectOrCreate?: InputMaybe<Array<PlatePlatesConnectOrCreateFieldInput>>;
-  create?: InputMaybe<Array<PlatePlatesCreateFieldInput>>;
-  delete?: InputMaybe<Array<PlatePlatesDeleteFieldInput>>;
-  disconnect?: InputMaybe<Array<PlatePlatesDisconnectFieldInput>>;
-  update?: InputMaybe<PlatePlatesUpdateConnectionInput>;
-  where?: InputMaybe<PlatePlatesConnectionWhere>;
-};
-
-export type PlatePropagationAggregateInput = {
-  AND?: InputMaybe<Array<PlatePropagationAggregateInput>>;
-  NOT?: InputMaybe<PlatePropagationAggregateInput>;
-  OR?: InputMaybe<Array<PlatePropagationAggregateInput>>;
-  count?: InputMaybe<Scalars['Int']['input']>;
-  count_GT?: InputMaybe<Scalars['Int']['input']>;
-  count_GTE?: InputMaybe<Scalars['Int']['input']>;
-  count_LT?: InputMaybe<Scalars['Int']['input']>;
-  count_LTE?: InputMaybe<Scalars['Int']['input']>;
-  node?: InputMaybe<PlatePropagationNodeAggregationWhereInput>;
-};
-
-export type PlatePropagationConnectFieldInput = {
-  connect?: InputMaybe<PropagationConnectInput>;
+export type PlatePropagationsConnectFieldInput = {
+  connect?: InputMaybe<Array<PropagationConnectInput>>;
   /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
   overwrite?: Scalars['Boolean']['input'];
   where?: InputMaybe<PropagationConnectWhere>;
 };
 
-export type PlatePropagationConnectOrCreateFieldInput = {
-  onCreate: PlatePropagationConnectOrCreateFieldInputOnCreate;
+export type PlatePropagationsConnectOrCreateFieldInput = {
+  onCreate: PlatePropagationsConnectOrCreateFieldInputOnCreate;
   where: PropagationConnectOrCreateWhere;
 };
 
-export type PlatePropagationConnectOrCreateFieldInputOnCreate = {
+export type PlatePropagationsConnectOrCreateFieldInputOnCreate = {
   node: PropagationOnCreateInput;
 };
 
-export type PlatePropagationConnection = {
-  __typename?: 'PlatePropagationConnection';
-  edges: Array<PlatePropagationRelationship>;
+export type PlatePropagationsConnection = {
+  __typename?: 'PlatePropagationsConnection';
+  edges: Array<PlatePropagationsRelationship>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
-export type PlatePropagationConnectionSort = {
+export type PlatePropagationsConnectionSort = {
   node?: InputMaybe<PropagationSort>;
 };
 
-export type PlatePropagationConnectionWhere = {
-  AND?: InputMaybe<Array<PlatePropagationConnectionWhere>>;
-  NOT?: InputMaybe<PlatePropagationConnectionWhere>;
-  OR?: InputMaybe<Array<PlatePropagationConnectionWhere>>;
+export type PlatePropagationsConnectionWhere = {
+  AND?: InputMaybe<Array<PlatePropagationsConnectionWhere>>;
+  NOT?: InputMaybe<PlatePropagationsConnectionWhere>;
+  OR?: InputMaybe<Array<PlatePropagationsConnectionWhere>>;
   node?: InputMaybe<PropagationWhere>;
 };
 
-export type PlatePropagationCreateFieldInput = {
+export type PlatePropagationsCreateFieldInput = {
   node: PropagationCreateInput;
 };
 
-export type PlatePropagationDeleteFieldInput = {
+export type PlatePropagationsDeleteFieldInput = {
   delete?: InputMaybe<PropagationDeleteInput>;
-  where?: InputMaybe<PlatePropagationConnectionWhere>;
+  where?: InputMaybe<PlatePropagationsConnectionWhere>;
 };
 
-export type PlatePropagationDisconnectFieldInput = {
+export type PlatePropagationsDisconnectFieldInput = {
   disconnect?: InputMaybe<PropagationDisconnectInput>;
-  where?: InputMaybe<PlatePropagationConnectionWhere>;
+  where?: InputMaybe<PlatePropagationsConnectionWhere>;
 };
 
-export type PlatePropagationFieldInput = {
-  connect?: InputMaybe<PlatePropagationConnectFieldInput>;
-  connectOrCreate?: InputMaybe<PlatePropagationConnectOrCreateFieldInput>;
-  create?: InputMaybe<PlatePropagationCreateFieldInput>;
+export type PlatePropagationsFieldInput = {
+  connect?: InputMaybe<Array<PlatePropagationsConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<PlatePropagationsConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<PlatePropagationsCreateFieldInput>>;
 };
 
-export type PlatePropagationNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<PlatePropagationNodeAggregationWhereInput>>;
-  NOT?: InputMaybe<PlatePropagationNodeAggregationWhereInput>;
-  OR?: InputMaybe<Array<PlatePropagationNodeAggregationWhereInput>>;
+export type PlatePropagationsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PlatePropagationsNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<PlatePropagationsNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<PlatePropagationsNodeAggregationWhereInput>>;
   createdAt_MAX_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
   createdAt_MAX_GT?: InputMaybe<Scalars['DateTime']['input']>;
   createdAt_MAX_GTE?: InputMaybe<Scalars['DateTime']['input']>;
@@ -1443,37 +1028,24 @@ export type PlatePropagationNodeAggregationWhereInput = {
   updatedAt_MIN_LTE?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-export type PlatePropagationPropagationAggregationSelection = {
-  __typename?: 'PlatePropagationPropagationAggregationSelection';
-  count: Scalars['Int']['output'];
-  node?: Maybe<PlatePropagationPropagationNodeAggregateSelection>;
-};
-
-export type PlatePropagationPropagationNodeAggregateSelection = {
-  __typename?: 'PlatePropagationPropagationNodeAggregateSelection';
-  createdAt: DateTimeAggregateSelectionNonNullable;
-  id: IdAggregateSelectionNonNullable;
-  updatedAt: DateTimeAggregateSelectionNonNullable;
-};
-
-export type PlatePropagationRelationship = {
-  __typename?: 'PlatePropagationRelationship';
+export type PlatePropagationsRelationship = {
+  __typename?: 'PlatePropagationsRelationship';
   cursor: Scalars['String']['output'];
   node: Propagation;
 };
 
-export type PlatePropagationUpdateConnectionInput = {
+export type PlatePropagationsUpdateConnectionInput = {
   node?: InputMaybe<PropagationUpdateInput>;
 };
 
-export type PlatePropagationUpdateFieldInput = {
-  connect?: InputMaybe<PlatePropagationConnectFieldInput>;
-  connectOrCreate?: InputMaybe<PlatePropagationConnectOrCreateFieldInput>;
-  create?: InputMaybe<PlatePropagationCreateFieldInput>;
-  delete?: InputMaybe<PlatePropagationDeleteFieldInput>;
-  disconnect?: InputMaybe<PlatePropagationDisconnectFieldInput>;
-  update?: InputMaybe<PlatePropagationUpdateConnectionInput>;
-  where?: InputMaybe<PlatePropagationConnectionWhere>;
+export type PlatePropagationsUpdateFieldInput = {
+  connect?: InputMaybe<Array<PlatePropagationsConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<PlatePropagationsConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<PlatePropagationsCreateFieldInput>>;
+  delete?: InputMaybe<Array<PlatePropagationsDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<PlatePropagationsDisconnectFieldInput>>;
+  update?: InputMaybe<PlatePropagationsUpdateConnectionInput>;
+  where?: InputMaybe<PlatePropagationsConnectionWhere>;
 };
 
 export type PlateRecipeAggregateInput = {
@@ -1635,9 +1207,7 @@ export type PlateRecipeUpdateFieldInput = {
 
 export type PlateRelationInput = {
   observations?: InputMaybe<Array<PlateObservationsCreateFieldInput>>;
-  parent?: InputMaybe<PlateParentCreateFieldInput>;
-  plates?: InputMaybe<Array<PlatePlatesCreateFieldInput>>;
-  propagation?: InputMaybe<PlatePropagationCreateFieldInput>;
+  propagations?: InputMaybe<Array<PlatePropagationsCreateFieldInput>>;
   recipe?: InputMaybe<PlateRecipeCreateFieldInput>;
 };
 
@@ -1656,9 +1226,7 @@ export type PlateUniqueWhere = {
 export type PlateUpdateInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   observations?: InputMaybe<Array<PlateObservationsUpdateFieldInput>>;
-  parent?: InputMaybe<PlateParentUpdateInput>;
-  plates?: InputMaybe<Array<PlatePlatesUpdateFieldInput>>;
-  propagation?: InputMaybe<PlatePropagationUpdateFieldInput>;
+  propagations?: InputMaybe<Array<PlatePropagationsUpdateFieldInput>>;
   recipe?: InputMaybe<PlateRecipeUpdateFieldInput>;
 };
 
@@ -1699,30 +1267,23 @@ export type PlateWhere = {
   observations_SINGLE?: InputMaybe<ObservationWhere>;
   /** Return Plates where some of the related Observations match this filter */
   observations_SOME?: InputMaybe<ObservationWhere>;
-  parentConnection?: InputMaybe<PlateParentConnectionWhere>;
-  parentConnection_NOT?: InputMaybe<PlateParentConnectionWhere>;
-  platesAggregate?: InputMaybe<PlatePlatesAggregateInput>;
-  /** Return Plates where all of the related PlatePlatesConnections match this filter */
-  platesConnection_ALL?: InputMaybe<PlatePlatesConnectionWhere>;
-  /** Return Plates where none of the related PlatePlatesConnections match this filter */
-  platesConnection_NONE?: InputMaybe<PlatePlatesConnectionWhere>;
-  /** Return Plates where one of the related PlatePlatesConnections match this filter */
-  platesConnection_SINGLE?: InputMaybe<PlatePlatesConnectionWhere>;
-  /** Return Plates where some of the related PlatePlatesConnections match this filter */
-  platesConnection_SOME?: InputMaybe<PlatePlatesConnectionWhere>;
-  /** Return Plates where all of the related Plates match this filter */
-  plates_ALL?: InputMaybe<PlateWhere>;
-  /** Return Plates where none of the related Plates match this filter */
-  plates_NONE?: InputMaybe<PlateWhere>;
-  /** Return Plates where one of the related Plates match this filter */
-  plates_SINGLE?: InputMaybe<PlateWhere>;
-  /** Return Plates where some of the related Plates match this filter */
-  plates_SOME?: InputMaybe<PlateWhere>;
-  propagation?: InputMaybe<PropagationWhere>;
-  propagationAggregate?: InputMaybe<PlatePropagationAggregateInput>;
-  propagationConnection?: InputMaybe<PlatePropagationConnectionWhere>;
-  propagationConnection_NOT?: InputMaybe<PlatePropagationConnectionWhere>;
-  propagation_NOT?: InputMaybe<PropagationWhere>;
+  propagationsAggregate?: InputMaybe<PlatePropagationsAggregateInput>;
+  /** Return Plates where all of the related PlatePropagationsConnections match this filter */
+  propagationsConnection_ALL?: InputMaybe<PlatePropagationsConnectionWhere>;
+  /** Return Plates where none of the related PlatePropagationsConnections match this filter */
+  propagationsConnection_NONE?: InputMaybe<PlatePropagationsConnectionWhere>;
+  /** Return Plates where one of the related PlatePropagationsConnections match this filter */
+  propagationsConnection_SINGLE?: InputMaybe<PlatePropagationsConnectionWhere>;
+  /** Return Plates where some of the related PlatePropagationsConnections match this filter */
+  propagationsConnection_SOME?: InputMaybe<PlatePropagationsConnectionWhere>;
+  /** Return Plates where all of the related Propagations match this filter */
+  propagations_ALL?: InputMaybe<PropagationWhere>;
+  /** Return Plates where none of the related Propagations match this filter */
+  propagations_NONE?: InputMaybe<PropagationWhere>;
+  /** Return Plates where one of the related Propagations match this filter */
+  propagations_SINGLE?: InputMaybe<PropagationWhere>;
+  /** Return Plates where some of the related Propagations match this filter */
+  propagations_SOME?: InputMaybe<PropagationWhere>;
   recipe?: InputMaybe<RecipeWhere>;
   recipeAggregate?: InputMaybe<PlateRecipeAggregateInput>;
   recipeConnection?: InputMaybe<PlateRecipeConnectionWhere>;
@@ -1750,13 +1311,22 @@ export type Propagation = {
   observations: Array<Observation>;
   observationsAggregate?: Maybe<PropagationObservationObservationsAggregationSelection>;
   observationsConnection: PropagationObservationsConnection;
+  plate?: Maybe<Plate>;
+  plateAggregate?: Maybe<PropagationPlatePlateAggregationSelection>;
+  plateConnection: PropagationPlateConnection;
   plates: Array<Plate>;
   platesAggregate?: Maybe<PropagationPlatePlatesAggregationSelection>;
   platesConnection: PropagationPlatesConnection;
+  propagation?: Maybe<Propagation>;
+  propagationAggregate?: Maybe<PropagationPropagationPropagationAggregationSelection>;
+  propagationConnection: PropagationPropagationConnection;
+  propagations: Array<Propagation>;
+  propagationsAggregate?: Maybe<PropagationPropagationPropagationsAggregationSelection>;
+  propagationsConnection: PropagationPropagationsConnection;
   recipe: Recipe;
   recipeAggregate?: Maybe<PropagationRecipeRecipeAggregationSelection>;
   recipeConnection: PropagationRecipeConnection;
-  sample: Sample;
+  sample?: Maybe<Sample>;
   sampleAggregate?: Maybe<PropagationSampleSampleAggregationSelection>;
   sampleConnection: PropagationSampleConnection;
   updatedAt: Scalars['DateTime']['output'];
@@ -1785,6 +1355,28 @@ export type PropagationObservationsConnectionArgs = {
 };
 
 
+export type PropagationPlateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<PlateOptions>;
+  where?: InputMaybe<PlateWhere>;
+};
+
+
+export type PropagationPlateAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<PlateWhere>;
+};
+
+
+export type PropagationPlateConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<PropagationPlateConnectionSort>>;
+  where?: InputMaybe<PropagationPlateConnectionWhere>;
+};
+
+
 export type PropagationPlatesArgs = {
   directed?: InputMaybe<Scalars['Boolean']['input']>;
   options?: InputMaybe<PlateOptions>;
@@ -1804,6 +1396,50 @@ export type PropagationPlatesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   sort?: InputMaybe<Array<PropagationPlatesConnectionSort>>;
   where?: InputMaybe<PropagationPlatesConnectionWhere>;
+};
+
+
+export type PropagationPropagationArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<PropagationOptions>;
+  where?: InputMaybe<PropagationWhere>;
+};
+
+
+export type PropagationPropagationAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<PropagationWhere>;
+};
+
+
+export type PropagationPropagationConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<PropagationPropagationConnectionSort>>;
+  where?: InputMaybe<PropagationPropagationConnectionWhere>;
+};
+
+
+export type PropagationPropagationsArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<PropagationOptions>;
+  where?: InputMaybe<PropagationWhere>;
+};
+
+
+export type PropagationPropagationsAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<PropagationWhere>;
+};
+
+
+export type PropagationPropagationsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<PropagationPropagationsConnectionSort>>;
+  where?: InputMaybe<PropagationPropagationsConnectionWhere>;
 };
 
 
@@ -1860,14 +1496,20 @@ export type PropagationAggregateSelection = {
 
 export type PropagationConnectInput = {
   observations?: InputMaybe<Array<PropagationObservationsConnectFieldInput>>;
+  plate?: InputMaybe<PropagationPlateConnectFieldInput>;
   plates?: InputMaybe<Array<PropagationPlatesConnectFieldInput>>;
+  propagation?: InputMaybe<PropagationPropagationConnectFieldInput>;
+  propagations?: InputMaybe<Array<PropagationPropagationsConnectFieldInput>>;
   recipe?: InputMaybe<PropagationRecipeConnectFieldInput>;
   sample?: InputMaybe<PropagationSampleConnectFieldInput>;
 };
 
 export type PropagationConnectOrCreateInput = {
   observations?: InputMaybe<Array<PropagationObservationsConnectOrCreateFieldInput>>;
+  plate?: InputMaybe<PropagationPlateConnectOrCreateFieldInput>;
   plates?: InputMaybe<Array<PropagationPlatesConnectOrCreateFieldInput>>;
+  propagation?: InputMaybe<PropagationPropagationConnectOrCreateFieldInput>;
+  propagations?: InputMaybe<Array<PropagationPropagationsConnectOrCreateFieldInput>>;
   recipe?: InputMaybe<PropagationRecipeConnectOrCreateFieldInput>;
   sample?: InputMaybe<PropagationSampleConnectOrCreateFieldInput>;
 };
@@ -1882,21 +1524,30 @@ export type PropagationConnectWhere = {
 
 export type PropagationCreateInput = {
   observations?: InputMaybe<PropagationObservationsFieldInput>;
+  plate?: InputMaybe<PropagationPlateFieldInput>;
   plates?: InputMaybe<PropagationPlatesFieldInput>;
+  propagation?: InputMaybe<PropagationPropagationFieldInput>;
+  propagations?: InputMaybe<PropagationPropagationsFieldInput>;
   recipe?: InputMaybe<PropagationRecipeFieldInput>;
   sample?: InputMaybe<PropagationSampleFieldInput>;
 };
 
 export type PropagationDeleteInput = {
   observations?: InputMaybe<Array<PropagationObservationsDeleteFieldInput>>;
+  plate?: InputMaybe<PropagationPlateDeleteFieldInput>;
   plates?: InputMaybe<Array<PropagationPlatesDeleteFieldInput>>;
+  propagation?: InputMaybe<PropagationPropagationDeleteFieldInput>;
+  propagations?: InputMaybe<Array<PropagationPropagationsDeleteFieldInput>>;
   recipe?: InputMaybe<PropagationRecipeDeleteFieldInput>;
   sample?: InputMaybe<PropagationSampleDeleteFieldInput>;
 };
 
 export type PropagationDisconnectInput = {
   observations?: InputMaybe<Array<PropagationObservationsDisconnectFieldInput>>;
+  plate?: InputMaybe<PropagationPlateDisconnectFieldInput>;
   plates?: InputMaybe<Array<PropagationPlatesDisconnectFieldInput>>;
+  propagation?: InputMaybe<PropagationPropagationDisconnectFieldInput>;
+  propagations?: InputMaybe<Array<PropagationPropagationsDisconnectFieldInput>>;
   recipe?: InputMaybe<PropagationRecipeDisconnectFieldInput>;
   sample?: InputMaybe<PropagationSampleDisconnectFieldInput>;
 };
@@ -2060,6 +1711,127 @@ export type PropagationOptions = {
   sort?: InputMaybe<Array<PropagationSort>>;
 };
 
+export type PropagationPlateAggregateInput = {
+  AND?: InputMaybe<Array<PropagationPlateAggregateInput>>;
+  NOT?: InputMaybe<PropagationPlateAggregateInput>;
+  OR?: InputMaybe<Array<PropagationPlateAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<PropagationPlateNodeAggregationWhereInput>;
+};
+
+export type PropagationPlateConnectFieldInput = {
+  connect?: InputMaybe<PlateConnectInput>;
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<PlateConnectWhere>;
+};
+
+export type PropagationPlateConnectOrCreateFieldInput = {
+  onCreate: PropagationPlateConnectOrCreateFieldInputOnCreate;
+  where: PlateConnectOrCreateWhere;
+};
+
+export type PropagationPlateConnectOrCreateFieldInputOnCreate = {
+  node: PlateOnCreateInput;
+};
+
+export type PropagationPlateConnection = {
+  __typename?: 'PropagationPlateConnection';
+  edges: Array<PropagationPlateRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type PropagationPlateConnectionSort = {
+  node?: InputMaybe<PlateSort>;
+};
+
+export type PropagationPlateConnectionWhere = {
+  AND?: InputMaybe<Array<PropagationPlateConnectionWhere>>;
+  NOT?: InputMaybe<PropagationPlateConnectionWhere>;
+  OR?: InputMaybe<Array<PropagationPlateConnectionWhere>>;
+  node?: InputMaybe<PlateWhere>;
+};
+
+export type PropagationPlateCreateFieldInput = {
+  node: PlateCreateInput;
+};
+
+export type PropagationPlateDeleteFieldInput = {
+  delete?: InputMaybe<PlateDeleteInput>;
+  where?: InputMaybe<PropagationPlateConnectionWhere>;
+};
+
+export type PropagationPlateDisconnectFieldInput = {
+  disconnect?: InputMaybe<PlateDisconnectInput>;
+  where?: InputMaybe<PropagationPlateConnectionWhere>;
+};
+
+export type PropagationPlateFieldInput = {
+  connect?: InputMaybe<PropagationPlateConnectFieldInput>;
+  connectOrCreate?: InputMaybe<PropagationPlateConnectOrCreateFieldInput>;
+  create?: InputMaybe<PropagationPlateCreateFieldInput>;
+};
+
+export type PropagationPlateNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PropagationPlateNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<PropagationPlateNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<PropagationPlateNodeAggregationWhereInput>>;
+  createdAt_MAX_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MAX_GT?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MAX_GTE?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MAX_LT?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MAX_LTE?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MIN_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MIN_GT?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MIN_GTE?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MIN_LT?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MIN_LTE?: InputMaybe<Scalars['DateTime']['input']>;
+  description_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  description_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  updatedAt_MAX_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MAX_GT?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MAX_GTE?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MAX_LT?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MAX_LTE?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MIN_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MIN_GT?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MIN_GTE?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MIN_LT?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MIN_LTE?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type PropagationPlatePlateAggregationSelection = {
+  __typename?: 'PropagationPlatePlateAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<PropagationPlatePlateNodeAggregateSelection>;
+};
+
+export type PropagationPlatePlateNodeAggregateSelection = {
+  __typename?: 'PropagationPlatePlateNodeAggregateSelection';
+  createdAt: DateTimeAggregateSelectionNonNullable;
+  description: StringAggregateSelectionNullable;
+  id: IdAggregateSelectionNonNullable;
+  updatedAt: DateTimeAggregateSelectionNonNullable;
+};
+
 export type PropagationPlatePlatesAggregationSelection = {
   __typename?: 'PropagationPlatePlatesAggregationSelection';
   count: Scalars['Int']['output'];
@@ -2072,6 +1844,26 @@ export type PropagationPlatePlatesNodeAggregateSelection = {
   description: StringAggregateSelectionNullable;
   id: IdAggregateSelectionNonNullable;
   updatedAt: DateTimeAggregateSelectionNonNullable;
+};
+
+export type PropagationPlateRelationship = {
+  __typename?: 'PropagationPlateRelationship';
+  cursor: Scalars['String']['output'];
+  node: Plate;
+};
+
+export type PropagationPlateUpdateConnectionInput = {
+  node?: InputMaybe<PlateUpdateInput>;
+};
+
+export type PropagationPlateUpdateFieldInput = {
+  connect?: InputMaybe<PropagationPlateConnectFieldInput>;
+  connectOrCreate?: InputMaybe<PropagationPlateConnectOrCreateFieldInput>;
+  create?: InputMaybe<PropagationPlateCreateFieldInput>;
+  delete?: InputMaybe<PropagationPlateDeleteFieldInput>;
+  disconnect?: InputMaybe<PropagationPlateDisconnectFieldInput>;
+  update?: InputMaybe<PropagationPlateUpdateConnectionInput>;
+  where?: InputMaybe<PropagationPlateConnectionWhere>;
 };
 
 export type PropagationPlatesAggregateInput = {
@@ -2199,6 +1991,256 @@ export type PropagationPlatesUpdateFieldInput = {
   disconnect?: InputMaybe<Array<PropagationPlatesDisconnectFieldInput>>;
   update?: InputMaybe<PropagationPlatesUpdateConnectionInput>;
   where?: InputMaybe<PropagationPlatesConnectionWhere>;
+};
+
+export type PropagationPropagationAggregateInput = {
+  AND?: InputMaybe<Array<PropagationPropagationAggregateInput>>;
+  NOT?: InputMaybe<PropagationPropagationAggregateInput>;
+  OR?: InputMaybe<Array<PropagationPropagationAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<PropagationPropagationNodeAggregationWhereInput>;
+};
+
+export type PropagationPropagationConnectFieldInput = {
+  connect?: InputMaybe<PropagationConnectInput>;
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<PropagationConnectWhere>;
+};
+
+export type PropagationPropagationConnectOrCreateFieldInput = {
+  onCreate: PropagationPropagationConnectOrCreateFieldInputOnCreate;
+  where: PropagationConnectOrCreateWhere;
+};
+
+export type PropagationPropagationConnectOrCreateFieldInputOnCreate = {
+  node: PropagationOnCreateInput;
+};
+
+export type PropagationPropagationConnection = {
+  __typename?: 'PropagationPropagationConnection';
+  edges: Array<PropagationPropagationRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type PropagationPropagationConnectionSort = {
+  node?: InputMaybe<PropagationSort>;
+};
+
+export type PropagationPropagationConnectionWhere = {
+  AND?: InputMaybe<Array<PropagationPropagationConnectionWhere>>;
+  NOT?: InputMaybe<PropagationPropagationConnectionWhere>;
+  OR?: InputMaybe<Array<PropagationPropagationConnectionWhere>>;
+  node?: InputMaybe<PropagationWhere>;
+};
+
+export type PropagationPropagationCreateFieldInput = {
+  node: PropagationCreateInput;
+};
+
+export type PropagationPropagationDeleteFieldInput = {
+  delete?: InputMaybe<PropagationDeleteInput>;
+  where?: InputMaybe<PropagationPropagationConnectionWhere>;
+};
+
+export type PropagationPropagationDisconnectFieldInput = {
+  disconnect?: InputMaybe<PropagationDisconnectInput>;
+  where?: InputMaybe<PropagationPropagationConnectionWhere>;
+};
+
+export type PropagationPropagationFieldInput = {
+  connect?: InputMaybe<PropagationPropagationConnectFieldInput>;
+  connectOrCreate?: InputMaybe<PropagationPropagationConnectOrCreateFieldInput>;
+  create?: InputMaybe<PropagationPropagationCreateFieldInput>;
+};
+
+export type PropagationPropagationNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PropagationPropagationNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<PropagationPropagationNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<PropagationPropagationNodeAggregationWhereInput>>;
+  createdAt_MAX_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MAX_GT?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MAX_GTE?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MAX_LT?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MAX_LTE?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MIN_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MIN_GT?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MIN_GTE?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MIN_LT?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MIN_LTE?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MAX_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MAX_GT?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MAX_GTE?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MAX_LT?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MAX_LTE?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MIN_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MIN_GT?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MIN_GTE?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MIN_LT?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MIN_LTE?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type PropagationPropagationPropagationAggregationSelection = {
+  __typename?: 'PropagationPropagationPropagationAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<PropagationPropagationPropagationNodeAggregateSelection>;
+};
+
+export type PropagationPropagationPropagationNodeAggregateSelection = {
+  __typename?: 'PropagationPropagationPropagationNodeAggregateSelection';
+  createdAt: DateTimeAggregateSelectionNonNullable;
+  id: IdAggregateSelectionNonNullable;
+  updatedAt: DateTimeAggregateSelectionNonNullable;
+};
+
+export type PropagationPropagationPropagationsAggregationSelection = {
+  __typename?: 'PropagationPropagationPropagationsAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<PropagationPropagationPropagationsNodeAggregateSelection>;
+};
+
+export type PropagationPropagationPropagationsNodeAggregateSelection = {
+  __typename?: 'PropagationPropagationPropagationsNodeAggregateSelection';
+  createdAt: DateTimeAggregateSelectionNonNullable;
+  id: IdAggregateSelectionNonNullable;
+  updatedAt: DateTimeAggregateSelectionNonNullable;
+};
+
+export type PropagationPropagationRelationship = {
+  __typename?: 'PropagationPropagationRelationship';
+  cursor: Scalars['String']['output'];
+  node: Propagation;
+};
+
+export type PropagationPropagationUpdateConnectionInput = {
+  node?: InputMaybe<PropagationUpdateInput>;
+};
+
+export type PropagationPropagationUpdateFieldInput = {
+  connect?: InputMaybe<PropagationPropagationConnectFieldInput>;
+  connectOrCreate?: InputMaybe<PropagationPropagationConnectOrCreateFieldInput>;
+  create?: InputMaybe<PropagationPropagationCreateFieldInput>;
+  delete?: InputMaybe<PropagationPropagationDeleteFieldInput>;
+  disconnect?: InputMaybe<PropagationPropagationDisconnectFieldInput>;
+  update?: InputMaybe<PropagationPropagationUpdateConnectionInput>;
+  where?: InputMaybe<PropagationPropagationConnectionWhere>;
+};
+
+export type PropagationPropagationsAggregateInput = {
+  AND?: InputMaybe<Array<PropagationPropagationsAggregateInput>>;
+  NOT?: InputMaybe<PropagationPropagationsAggregateInput>;
+  OR?: InputMaybe<Array<PropagationPropagationsAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<PropagationPropagationsNodeAggregationWhereInput>;
+};
+
+export type PropagationPropagationsConnectFieldInput = {
+  connect?: InputMaybe<Array<PropagationConnectInput>>;
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<PropagationConnectWhere>;
+};
+
+export type PropagationPropagationsConnectOrCreateFieldInput = {
+  onCreate: PropagationPropagationsConnectOrCreateFieldInputOnCreate;
+  where: PropagationConnectOrCreateWhere;
+};
+
+export type PropagationPropagationsConnectOrCreateFieldInputOnCreate = {
+  node: PropagationOnCreateInput;
+};
+
+export type PropagationPropagationsConnection = {
+  __typename?: 'PropagationPropagationsConnection';
+  edges: Array<PropagationPropagationsRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type PropagationPropagationsConnectionSort = {
+  node?: InputMaybe<PropagationSort>;
+};
+
+export type PropagationPropagationsConnectionWhere = {
+  AND?: InputMaybe<Array<PropagationPropagationsConnectionWhere>>;
+  NOT?: InputMaybe<PropagationPropagationsConnectionWhere>;
+  OR?: InputMaybe<Array<PropagationPropagationsConnectionWhere>>;
+  node?: InputMaybe<PropagationWhere>;
+};
+
+export type PropagationPropagationsCreateFieldInput = {
+  node: PropagationCreateInput;
+};
+
+export type PropagationPropagationsDeleteFieldInput = {
+  delete?: InputMaybe<PropagationDeleteInput>;
+  where?: InputMaybe<PropagationPropagationsConnectionWhere>;
+};
+
+export type PropagationPropagationsDisconnectFieldInput = {
+  disconnect?: InputMaybe<PropagationDisconnectInput>;
+  where?: InputMaybe<PropagationPropagationsConnectionWhere>;
+};
+
+export type PropagationPropagationsFieldInput = {
+  connect?: InputMaybe<Array<PropagationPropagationsConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<PropagationPropagationsConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<PropagationPropagationsCreateFieldInput>>;
+};
+
+export type PropagationPropagationsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PropagationPropagationsNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<PropagationPropagationsNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<PropagationPropagationsNodeAggregationWhereInput>>;
+  createdAt_MAX_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MAX_GT?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MAX_GTE?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MAX_LT?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MAX_LTE?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MIN_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MIN_GT?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MIN_GTE?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MIN_LT?: InputMaybe<Scalars['DateTime']['input']>;
+  createdAt_MIN_LTE?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MAX_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MAX_GT?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MAX_GTE?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MAX_LT?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MAX_LTE?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MIN_EQUAL?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MIN_GT?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MIN_GTE?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MIN_LT?: InputMaybe<Scalars['DateTime']['input']>;
+  updatedAt_MIN_LTE?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type PropagationPropagationsRelationship = {
+  __typename?: 'PropagationPropagationsRelationship';
+  cursor: Scalars['String']['output'];
+  node: Propagation;
+};
+
+export type PropagationPropagationsUpdateConnectionInput = {
+  node?: InputMaybe<PropagationUpdateInput>;
+};
+
+export type PropagationPropagationsUpdateFieldInput = {
+  connect?: InputMaybe<Array<PropagationPropagationsConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<PropagationPropagationsConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<PropagationPropagationsCreateFieldInput>>;
+  delete?: InputMaybe<Array<PropagationPropagationsDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<PropagationPropagationsDisconnectFieldInput>>;
+  update?: InputMaybe<PropagationPropagationsUpdateConnectionInput>;
+  where?: InputMaybe<PropagationPropagationsConnectionWhere>;
 };
 
 export type PropagationRecipeAggregateInput = {
@@ -2360,7 +2402,10 @@ export type PropagationRecipeUpdateFieldInput = {
 
 export type PropagationRelationInput = {
   observations?: InputMaybe<Array<PropagationObservationsCreateFieldInput>>;
+  plate?: InputMaybe<PropagationPlateCreateFieldInput>;
   plates?: InputMaybe<Array<PropagationPlatesCreateFieldInput>>;
+  propagation?: InputMaybe<PropagationPropagationCreateFieldInput>;
+  propagations?: InputMaybe<Array<PropagationPropagationsCreateFieldInput>>;
   recipe?: InputMaybe<PropagationRecipeCreateFieldInput>;
   sample?: InputMaybe<PropagationSampleCreateFieldInput>;
 };
@@ -2529,8 +2574,8 @@ export type PropagationSampleSampleNodeAggregateSelection = {
   createdAt: DateTimeAggregateSelectionNonNullable;
   description: StringAggregateSelectionNullable;
   id: IdAggregateSelectionNonNullable;
-  latitude: FloatAggregateSelectionNonNullable;
-  longitude: FloatAggregateSelectionNonNullable;
+  latitude: FloatAggregateSelectionNullable;
+  longitude: FloatAggregateSelectionNullable;
   updatedAt: DateTimeAggregateSelectionNonNullable;
 };
 
@@ -2561,7 +2606,10 @@ export type PropagationUniqueWhere = {
 
 export type PropagationUpdateInput = {
   observations?: InputMaybe<Array<PropagationObservationsUpdateFieldInput>>;
+  plate?: InputMaybe<PropagationPlateUpdateFieldInput>;
   plates?: InputMaybe<Array<PropagationPlatesUpdateFieldInput>>;
+  propagation?: InputMaybe<PropagationPropagationUpdateFieldInput>;
+  propagations?: InputMaybe<Array<PropagationPropagationsUpdateFieldInput>>;
   recipe?: InputMaybe<PropagationRecipeUpdateFieldInput>;
   sample?: InputMaybe<PropagationSampleUpdateFieldInput>;
 };
@@ -2598,6 +2646,11 @@ export type PropagationWhere = {
   observations_SINGLE?: InputMaybe<ObservationWhere>;
   /** Return Propagations where some of the related Observations match this filter */
   observations_SOME?: InputMaybe<ObservationWhere>;
+  plate?: InputMaybe<PlateWhere>;
+  plateAggregate?: InputMaybe<PropagationPlateAggregateInput>;
+  plateConnection?: InputMaybe<PropagationPlateConnectionWhere>;
+  plateConnection_NOT?: InputMaybe<PropagationPlateConnectionWhere>;
+  plate_NOT?: InputMaybe<PlateWhere>;
   platesAggregate?: InputMaybe<PropagationPlatesAggregateInput>;
   /** Return Propagations where all of the related PropagationPlatesConnections match this filter */
   platesConnection_ALL?: InputMaybe<PropagationPlatesConnectionWhere>;
@@ -2615,6 +2668,28 @@ export type PropagationWhere = {
   plates_SINGLE?: InputMaybe<PlateWhere>;
   /** Return Propagations where some of the related Plates match this filter */
   plates_SOME?: InputMaybe<PlateWhere>;
+  propagation?: InputMaybe<PropagationWhere>;
+  propagationAggregate?: InputMaybe<PropagationPropagationAggregateInput>;
+  propagationConnection?: InputMaybe<PropagationPropagationConnectionWhere>;
+  propagationConnection_NOT?: InputMaybe<PropagationPropagationConnectionWhere>;
+  propagation_NOT?: InputMaybe<PropagationWhere>;
+  propagationsAggregate?: InputMaybe<PropagationPropagationsAggregateInput>;
+  /** Return Propagations where all of the related PropagationPropagationsConnections match this filter */
+  propagationsConnection_ALL?: InputMaybe<PropagationPropagationsConnectionWhere>;
+  /** Return Propagations where none of the related PropagationPropagationsConnections match this filter */
+  propagationsConnection_NONE?: InputMaybe<PropagationPropagationsConnectionWhere>;
+  /** Return Propagations where one of the related PropagationPropagationsConnections match this filter */
+  propagationsConnection_SINGLE?: InputMaybe<PropagationPropagationsConnectionWhere>;
+  /** Return Propagations where some of the related PropagationPropagationsConnections match this filter */
+  propagationsConnection_SOME?: InputMaybe<PropagationPropagationsConnectionWhere>;
+  /** Return Propagations where all of the related Propagations match this filter */
+  propagations_ALL?: InputMaybe<PropagationWhere>;
+  /** Return Propagations where none of the related Propagations match this filter */
+  propagations_NONE?: InputMaybe<PropagationWhere>;
+  /** Return Propagations where one of the related Propagations match this filter */
+  propagations_SINGLE?: InputMaybe<PropagationWhere>;
+  /** Return Propagations where some of the related Propagations match this filter */
+  propagations_SOME?: InputMaybe<PropagationWhere>;
   recipe?: InputMaybe<RecipeWhere>;
   recipeAggregate?: InputMaybe<PropagationRecipeAggregateInput>;
   recipeConnection?: InputMaybe<PropagationRecipeConnectionWhere>;
@@ -3098,7 +3173,7 @@ export type RecipeSort = {
 
 export enum RecipeType {
   Plate = 'PLATE',
-  Propagation = 'PROPAGATION'
+  Wort = 'WORT'
 }
 
 export type RecipeUniqueWhere = {
@@ -3263,8 +3338,8 @@ export type RecordingSampleSamplesNodeAggregateSelection = {
   createdAt: DateTimeAggregateSelectionNonNullable;
   description: StringAggregateSelectionNullable;
   id: IdAggregateSelectionNonNullable;
-  latitude: FloatAggregateSelectionNonNullable;
-  longitude: FloatAggregateSelectionNonNullable;
+  latitude: FloatAggregateSelectionNullable;
+  longitude: FloatAggregateSelectionNullable;
   updatedAt: DateTimeAggregateSelectionNonNullable;
 };
 
@@ -3516,8 +3591,8 @@ export type Sample = {
   createdAt: Scalars['DateTime']['output'];
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
-  latitude: Scalars['Float']['output'];
-  longitude: Scalars['Float']['output'];
+  latitude?: Maybe<Scalars['Float']['output']>;
+  longitude?: Maybe<Scalars['Float']['output']>;
   observations: Array<Observation>;
   observationsAggregate?: Maybe<SampleObservationObservationsAggregationSelection>;
   observationsConnection: SampleObservationsConnection;
@@ -3527,6 +3602,7 @@ export type Sample = {
   recording: Recording;
   recordingAggregate?: Maybe<SampleRecordingRecordingAggregationSelection>;
   recordingConnection: SampleRecordingConnection;
+  type: SampleType;
   updatedAt: Scalars['DateTime']['output'];
 };
 
@@ -3602,8 +3678,8 @@ export type SampleAggregateSelection = {
   createdAt: DateTimeAggregateSelectionNonNullable;
   description: StringAggregateSelectionNullable;
   id: IdAggregateSelectionNonNullable;
-  latitude: FloatAggregateSelectionNonNullable;
-  longitude: FloatAggregateSelectionNonNullable;
+  latitude: FloatAggregateSelectionNullable;
+  longitude: FloatAggregateSelectionNullable;
   updatedAt: DateTimeAggregateSelectionNonNullable;
 };
 
@@ -3629,11 +3705,12 @@ export type SampleConnectWhere = {
 
 export type SampleCreateInput = {
   description?: InputMaybe<Scalars['String']['input']>;
-  latitude: Scalars['Float']['input'];
-  longitude: Scalars['Float']['input'];
+  latitude?: InputMaybe<Scalars['Float']['input']>;
+  longitude?: InputMaybe<Scalars['Float']['input']>;
   observations?: InputMaybe<SampleObservationsFieldInput>;
   propagations?: InputMaybe<SamplePropagationsFieldInput>;
   recording?: InputMaybe<SampleRecordingFieldInput>;
+  type: SampleType;
 };
 
 export type SampleDeleteInput = {
@@ -3797,8 +3874,9 @@ export type SampleObservationsUpdateFieldInput = {
 
 export type SampleOnCreateInput = {
   description?: InputMaybe<Scalars['String']['input']>;
-  latitude: Scalars['Float']['input'];
-  longitude: Scalars['Float']['input'];
+  latitude?: InputMaybe<Scalars['Float']['input']>;
+  longitude?: InputMaybe<Scalars['Float']['input']>;
+  type: SampleType;
 };
 
 export type SampleOptions = {
@@ -4103,8 +4181,16 @@ export type SampleSort = {
   id?: InputMaybe<SortDirection>;
   latitude?: InputMaybe<SortDirection>;
   longitude?: InputMaybe<SortDirection>;
+  type?: InputMaybe<SortDirection>;
   updatedAt?: InputMaybe<SortDirection>;
 };
+
+export enum SampleType {
+  Beer = 'BEER',
+  Fermentation = 'FERMENTATION',
+  Object = 'OBJECT',
+  Swab = 'SWAB'
+}
 
 export type SampleUniqueWhere = {
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -4125,6 +4211,7 @@ export type SampleUpdateInput = {
   observations?: InputMaybe<Array<SampleObservationsUpdateFieldInput>>;
   propagations?: InputMaybe<Array<SamplePropagationsUpdateFieldInput>>;
   recording?: InputMaybe<SampleRecordingUpdateFieldInput>;
+  type?: InputMaybe<SampleType>;
 };
 
 export type SampleWhere = {
@@ -4150,13 +4237,13 @@ export type SampleWhere = {
   latitude?: InputMaybe<Scalars['Float']['input']>;
   latitude_GT?: InputMaybe<Scalars['Float']['input']>;
   latitude_GTE?: InputMaybe<Scalars['Float']['input']>;
-  latitude_IN?: InputMaybe<Array<Scalars['Float']['input']>>;
+  latitude_IN?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
   latitude_LT?: InputMaybe<Scalars['Float']['input']>;
   latitude_LTE?: InputMaybe<Scalars['Float']['input']>;
   longitude?: InputMaybe<Scalars['Float']['input']>;
   longitude_GT?: InputMaybe<Scalars['Float']['input']>;
   longitude_GTE?: InputMaybe<Scalars['Float']['input']>;
-  longitude_IN?: InputMaybe<Array<Scalars['Float']['input']>>;
+  longitude_IN?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
   longitude_LT?: InputMaybe<Scalars['Float']['input']>;
   longitude_LTE?: InputMaybe<Scalars['Float']['input']>;
   observationsAggregate?: InputMaybe<SampleObservationsAggregateInput>;
@@ -4198,6 +4285,8 @@ export type SampleWhere = {
   recordingConnection?: InputMaybe<SampleRecordingConnectionWhere>;
   recordingConnection_NOT?: InputMaybe<SampleRecordingConnectionWhere>;
   recording_NOT?: InputMaybe<RecordingWhere>;
+  type?: InputMaybe<SampleType>;
+  type_IN?: InputMaybe<Array<SampleType>>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   updatedAt_GT?: InputMaybe<Scalars['DateTime']['input']>;
   updatedAt_GTE?: InputMaybe<Scalars['DateTime']['input']>;
@@ -4623,8 +4712,8 @@ export type UserSampleSamplesNodeAggregateSelection = {
   createdAt: DateTimeAggregateSelectionNonNullable;
   description: StringAggregateSelectionNullable;
   id: IdAggregateSelectionNonNullable;
-  latitude: FloatAggregateSelectionNonNullable;
-  longitude: FloatAggregateSelectionNonNullable;
+  latitude: FloatAggregateSelectionNullable;
+  longitude: FloatAggregateSelectionNullable;
   updatedAt: DateTimeAggregateSelectionNonNullable;
 };
 
@@ -4878,12 +4967,15 @@ export type UsersConnection = {
   totalCount: Scalars['Int']['output'];
 };
 
-export type GetPropagationByIdQueryVariables = Exact<{
+export type GetPropagationById_QueryQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type GetPropagationByIdQuery = { __typename?: 'Query', propagations: Array<{ __typename?: 'Propagation', id: string, recipe: { __typename?: 'Recipe', id: string, name: string }, plates: Array<{ __typename?: 'Plate', id: string, recipe: { __typename?: 'Recipe', id: string, name: string }, plates: Array<{ __typename?: 'Plate', id: string, plates: Array<{ __typename?: 'Plate', id: string, plates: Array<{ __typename?: 'Plate', id: string }> }> }> }> }> };
+export type GetPropagationById_QueryQuery = { __typename?: 'Query', propagations: Array<(
+    { __typename?: 'Propagation' }
+    & { ' $fragmentRefs'?: { 'PropagationOverview_PropagationFragmentFragment': PropagationOverview_PropagationFragmentFragment } }
+  )> };
 
 export type GetRecordingById_QueryQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -4913,23 +5005,10 @@ export type GetSampleById_QueryQuery = { __typename?: 'Query', samples: Array<(
     & { ' $fragmentRefs'?: { 'SampleOverview_SampleFragmentFragment': SampleOverview_SampleFragmentFragment } }
   )> };
 
-export type RecordingList_QueryFragmentFragment = { __typename?: 'Query', recordings: Array<{ __typename?: 'Recording', id: string, name: string, description: string, createdAt: any, samples: Array<{ __typename?: 'Sample', id: string }> }> } & { ' $fragmentName'?: 'RecordingList_QueryFragmentFragment' };
+export type GetRecipesQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type RecordingDendrogram_RecordingFragmentFragment = { __typename?: 'Recording', samples: Array<{ __typename?: 'Sample', id: string, propagations: Array<{ __typename?: 'Propagation', id: string, plates: Array<{ __typename?: 'Plate', id: string }> }> }> } & { ' $fragmentName'?: 'RecordingDendrogram_RecordingFragmentFragment' };
 
-export type RecordingOverview_RecordingFragmentFragment = (
-  { __typename?: 'Recording', id: string, name: string, description: string, createdAt: any, updatedAt: any, samples: Array<{ __typename?: 'Sample', latitude: number, longitude: number }> }
-  & { ' $fragmentRefs'?: { 'RecordingDendrogram_RecordingFragmentFragment': RecordingDendrogram_RecordingFragmentFragment;'SampleList_RecordingFragmentFragment': SampleList_RecordingFragmentFragment } }
-) & { ' $fragmentName'?: 'RecordingOverview_RecordingFragmentFragment' };
-
-export type SampleList_RecordingFragmentFragment = { __typename?: 'Recording', samples: Array<{ __typename?: 'Sample', id: string, description?: string | null, longitude: number, latitude: number, createdAt: any, propagations: Array<{ __typename?: 'Propagation', id: string }> }> } & { ' $fragmentName'?: 'SampleList_RecordingFragmentFragment' };
-
-export type PropagationList_SampleFragmentFragment = { __typename?: 'Sample', propagations: Array<{ __typename?: 'Propagation', id: string, createdAt: any, plates: Array<{ __typename?: 'Plate', id: string }>, recipe: { __typename?: 'Recipe', id: string, name: string } }> } & { ' $fragmentName'?: 'PropagationList_SampleFragmentFragment' };
-
-export type SampleOverview_SampleFragmentFragment = (
-  { __typename?: 'Sample', id: string, description?: string | null, longitude: number, latitude: number }
-  & { ' $fragmentRefs'?: { 'PropagationList_SampleFragmentFragment': PropagationList_SampleFragmentFragment } }
-) & { ' $fragmentName'?: 'SampleOverview_SampleFragmentFragment' };
+export type GetRecipesQuery = { __typename?: 'Query', recipes: Array<{ __typename?: 'Recipe', id: string, name: string }> };
 
 export type CreateRecordingMutationVariables = Exact<{
   input: Array<RecordingCreateInput> | RecordingCreateInput;
@@ -4938,6 +5017,43 @@ export type CreateRecordingMutationVariables = Exact<{
 
 export type CreateRecordingMutation = { __typename?: 'Mutation', createRecordings: { __typename?: 'CreateRecordingsMutationResponse', recordings: Array<{ __typename?: 'Recording', id: string }> } };
 
+export type CreatePropagationMutationVariables = Exact<{
+  input: Array<PropagationCreateInput> | PropagationCreateInput;
+}>;
+
+
+export type CreatePropagationMutation = { __typename?: 'Mutation', createPropagations: { __typename?: 'CreatePropagationsMutationResponse', propagations: Array<{ __typename?: 'Propagation', id: string }> } };
+
+export type PropagationListItem_PropagationFragmentFragment = { __typename?: 'Propagation', id: string, createdAt: any, plates: Array<{ __typename?: 'Plate', id: string }>, propagations: Array<{ __typename?: 'Propagation', id: string }>, recipe: { __typename?: 'Recipe', id: string, name: string } } & { ' $fragmentName'?: 'PropagationListItem_PropagationFragmentFragment' };
+
+export type DeletePropagation_MutationMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type DeletePropagation_MutationMutation = { __typename?: 'Mutation', deletePropagations: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
+
+export type PlateList_PropagationFragmentFragment = { __typename?: 'Propagation', id: string, plates: Array<{ __typename?: 'Plate', id: string, createdAt: any, recipe: { __typename?: 'Recipe', id: string, name: string } }> } & { ' $fragmentName'?: 'PlateList_PropagationFragmentFragment' };
+
+export type PropagationOverview_PropagationFragmentFragment = (
+  { __typename?: 'Propagation', id: string, recipe: { __typename?: 'Recipe', name: string } }
+  & { ' $fragmentRefs'?: { 'PlateList_PropagationFragmentFragment': PlateList_PropagationFragmentFragment;'PropagationList_PropagationFragmentFragment': PropagationList_PropagationFragmentFragment } }
+) & { ' $fragmentName'?: 'PropagationOverview_PropagationFragmentFragment' };
+
+export type PropagationList_PropagationFragmentFragment = { __typename?: 'Propagation', propagations: Array<(
+    { __typename?: 'Propagation' }
+    & { ' $fragmentRefs'?: { 'PropagationListItem_PropagationFragmentFragment': PropagationListItem_PropagationFragmentFragment } }
+  )> } & { ' $fragmentName'?: 'PropagationList_PropagationFragmentFragment' };
+
+export type RecordingList_QueryFragmentFragment = { __typename?: 'Query', recordings: Array<{ __typename?: 'Recording', id: string, name: string, description: string, createdAt: any, samples: Array<{ __typename?: 'Sample', id: string }> }> } & { ' $fragmentName'?: 'RecordingList_QueryFragmentFragment' };
+
+export type DeleteRecording_MutationMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type DeleteRecording_MutationMutation = { __typename?: 'Mutation', deleteRecordings: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
+
 export type CreateSampleMutationVariables = Exact<{
   input: Array<SampleCreateInput> | SampleCreateInput;
 }>;
@@ -4945,15 +5061,59 @@ export type CreateSampleMutationVariables = Exact<{
 
 export type CreateSampleMutation = { __typename?: 'Mutation', createSamples: { __typename?: 'CreateSamplesMutationResponse', samples: Array<{ __typename?: 'Sample', id: string }> } };
 
+export type RecordingDendrogram_RecordingFragmentFragment = { __typename?: 'Recording', samples: Array<{ __typename?: 'Sample', id: string, propagations: Array<{ __typename?: 'Propagation', id: string, plates: Array<{ __typename?: 'Plate', id: string }> }> }> } & { ' $fragmentName'?: 'RecordingDendrogram_RecordingFragmentFragment' };
+
+export type RecordingNetworkGraph_RecordingFragmentFragment = { __typename?: 'Recording', samples: Array<{ __typename?: 'Sample', id: string, propagations: Array<{ __typename?: 'Propagation', id: string, propagations: Array<{ __typename?: 'Propagation', id: string, propagations: Array<{ __typename?: 'Propagation', id: string }> }>, plates: Array<{ __typename?: 'Plate', id: string, propagations: Array<{ __typename?: 'Propagation', id: string }> }> }> }> } & { ' $fragmentName'?: 'RecordingNetworkGraph_RecordingFragmentFragment' };
+
+export type RecordingOverview_RecordingFragmentFragment = (
+  { __typename?: 'Recording', id: string, name: string, description: string, createdAt: any, updatedAt: any }
+  & { ' $fragmentRefs'?: { 'RecordingSampleMap_RecordingFragmentFragment': RecordingSampleMap_RecordingFragmentFragment;'RecordingNetworkGraph_RecordingFragmentFragment': RecordingNetworkGraph_RecordingFragmentFragment;'SampleList_RecordingFragmentFragment': SampleList_RecordingFragmentFragment } }
+) & { ' $fragmentName'?: 'RecordingOverview_RecordingFragmentFragment' };
+
+export type RecordingSampleMap_RecordingFragmentFragment = { __typename?: 'Recording', samples: Array<{ __typename?: 'Sample', longitude?: number | null, latitude?: number | null }> } & { ' $fragmentName'?: 'RecordingSampleMap_RecordingFragmentFragment' };
+
+export type SampleList_RecordingFragmentFragment = { __typename?: 'Recording', samples: Array<{ __typename?: 'Sample', id: string, description?: string | null, longitude?: number | null, latitude?: number | null, createdAt: any, propagations: Array<{ __typename?: 'Propagation', id: string }> }> } & { ' $fragmentName'?: 'SampleList_RecordingFragmentFragment' };
+
+export type DeleteSample_MutationMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type DeleteSample_MutationMutation = { __typename?: 'Mutation', deleteSamples: { __typename?: 'DeleteInfo', nodesDeleted: number, relationshipsDeleted: number } };
+
+export type SampleMap_SampleFragmentFragment = { __typename?: 'Sample', longitude?: number | null, latitude?: number | null } & { ' $fragmentName'?: 'SampleMap_SampleFragmentFragment' };
+
+export type SampleOverview_SampleFragmentFragment = (
+  { __typename?: 'Sample', id: string, description?: string | null, longitude?: number | null, latitude?: number | null }
+  & { ' $fragmentRefs'?: { 'SampleMap_SampleFragmentFragment': SampleMap_SampleFragmentFragment;'PropagationList_SampleFragmentFragment': PropagationList_SampleFragmentFragment } }
+) & { ' $fragmentName'?: 'SampleOverview_SampleFragmentFragment' };
+
+export type PropagationList_SampleFragmentFragment = { __typename?: 'Sample', propagations: Array<(
+    { __typename?: 'Propagation' }
+    & { ' $fragmentRefs'?: { 'PropagationListItem_PropagationFragmentFragment': PropagationListItem_PropagationFragmentFragment } }
+  )> } & { ' $fragmentName'?: 'PropagationList_SampleFragmentFragment' };
+
+export const PlateList_PropagationFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PlateList_PropagationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Propagation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<PlateList_PropagationFragmentFragment, unknown>;
+export const PropagationListItem_PropagationFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationListItem_PropagationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Propagation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<PropagationListItem_PropagationFragmentFragment, unknown>;
+export const PropagationList_PropagationFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationList_PropagationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Propagation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PropagationListItem_PropagationFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationListItem_PropagationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Propagation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<PropagationList_PropagationFragmentFragment, unknown>;
+export const PropagationOverview_PropagationFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationOverview_PropagationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Propagation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PlateList_PropagationFragment"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PropagationList_PropagationFragment"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationListItem_PropagationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Propagation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PlateList_PropagationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Propagation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationList_PropagationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Propagation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PropagationListItem_PropagationFragment"}}]}}]}}]} as unknown as DocumentNode<PropagationOverview_PropagationFragmentFragment, unknown>;
 export const RecordingList_QueryFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RecordingList_QueryFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Query"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"recordings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<RecordingList_QueryFragmentFragment, unknown>;
 export const RecordingDendrogram_RecordingFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RecordingDendrogram_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]}}]} as unknown as DocumentNode<RecordingDendrogram_RecordingFragmentFragment, unknown>;
+export const RecordingSampleMap_RecordingFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RecordingSampleMap_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}}]}}]}}]} as unknown as DocumentNode<RecordingSampleMap_RecordingFragmentFragment, unknown>;
+export const RecordingNetworkGraph_RecordingFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RecordingNetworkGraph_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<RecordingNetworkGraph_RecordingFragmentFragment, unknown>;
 export const SampleList_RecordingFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SampleList_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<SampleList_RecordingFragmentFragment, unknown>;
-export const RecordingOverview_RecordingFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RecordingOverview_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RecordingDendrogram_RecordingFragment"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"SampleList_RecordingFragment"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RecordingDendrogram_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SampleList_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<RecordingOverview_RecordingFragmentFragment, unknown>;
-export const PropagationList_SampleFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationList_SampleFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Sample"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<PropagationList_SampleFragmentFragment, unknown>;
-export const SampleOverview_SampleFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SampleOverview_SampleFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Sample"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PropagationList_SampleFragment"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationList_SampleFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Sample"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<SampleOverview_SampleFragmentFragment, unknown>;
-export const GetPropagationByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPropagationById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"propagations"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetPropagationByIdQuery, GetPropagationByIdQueryVariables>;
-export const GetRecordingById_QueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRecordingById_Query"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"recordings"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RecordingOverview_RecordingFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RecordingDendrogram_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SampleList_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RecordingOverview_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RecordingDendrogram_RecordingFragment"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"SampleList_RecordingFragment"}}]}}]} as unknown as DocumentNode<GetRecordingById_QueryQuery, GetRecordingById_QueryQueryVariables>;
+export const RecordingOverview_RecordingFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RecordingOverview_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RecordingSampleMap_RecordingFragment"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RecordingNetworkGraph_RecordingFragment"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"SampleList_RecordingFragment"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RecordingSampleMap_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RecordingNetworkGraph_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SampleList_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<RecordingOverview_RecordingFragmentFragment, unknown>;
+export const SampleMap_SampleFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SampleMap_SampleFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Sample"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}}]}}]} as unknown as DocumentNode<SampleMap_SampleFragmentFragment, unknown>;
+export const PropagationList_SampleFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationList_SampleFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Sample"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PropagationListItem_PropagationFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationListItem_PropagationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Propagation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<PropagationList_SampleFragmentFragment, unknown>;
+export const SampleOverview_SampleFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SampleOverview_SampleFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Sample"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"SampleMap_SampleFragment"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PropagationList_SampleFragment"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationListItem_PropagationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Propagation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SampleMap_SampleFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Sample"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationList_SampleFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Sample"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PropagationListItem_PropagationFragment"}}]}}]}}]} as unknown as DocumentNode<SampleOverview_SampleFragmentFragment, unknown>;
+export const GetPropagationById_QueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPropagationById_Query"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"propagations"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PropagationOverview_PropagationFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PlateList_PropagationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Propagation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationListItem_PropagationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Propagation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationList_PropagationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Propagation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PropagationListItem_PropagationFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationOverview_PropagationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Propagation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PlateList_PropagationFragment"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PropagationList_PropagationFragment"}}]}}]} as unknown as DocumentNode<GetPropagationById_QueryQuery, GetPropagationById_QueryQueryVariables>;
+export const GetRecordingById_QueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRecordingById_Query"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"recordings"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RecordingOverview_RecordingFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RecordingSampleMap_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RecordingNetworkGraph_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SampleList_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RecordingOverview_RecordingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Recording"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RecordingSampleMap_RecordingFragment"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"RecordingNetworkGraph_RecordingFragment"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"SampleList_RecordingFragment"}}]}}]} as unknown as DocumentNode<GetRecordingById_QueryQuery, GetRecordingById_QueryQueryVariables>;
 export const GetRecordingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRecordings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RecordingList_QueryFragment"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RecordingList_QueryFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Query"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"recordings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<GetRecordingsQuery, GetRecordingsQueryVariables>;
-export const GetSampleById_QueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSampleById_Query"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SampleOverview_SampleFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationList_SampleFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Sample"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SampleOverview_SampleFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Sample"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PropagationList_SampleFragment"}}]}}]} as unknown as DocumentNode<GetSampleById_QueryQuery, GetSampleById_QueryQueryVariables>;
+export const GetSampleById_QueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSampleById_Query"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SampleOverview_SampleFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SampleMap_SampleFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Sample"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationListItem_PropagationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Propagation"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"plates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"recipe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PropagationList_SampleFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Sample"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PropagationListItem_PropagationFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SampleOverview_SampleFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Sample"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"SampleMap_SampleFragment"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PropagationList_SampleFragment"}}]}}]} as unknown as DocumentNode<GetSampleById_QueryQuery, GetSampleById_QueryQueryVariables>;
+export const GetRecipesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRecipes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"recipes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"type"},"value":{"kind":"EnumValue","value":"WORT"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetRecipesQuery, GetRecipesQueryVariables>;
 export const CreateRecordingDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateRecording"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RecordingCreateInput"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createRecordings"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"recordings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<CreateRecordingMutation, CreateRecordingMutationVariables>;
+export const CreatePropagationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreatePropagation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PropagationCreateInput"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createPropagations"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"propagations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<CreatePropagationMutation, CreatePropagationMutationVariables>;
+export const DeletePropagation_MutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeletePropagation_Mutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deletePropagations"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodesDeleted"}},{"kind":"Field","name":{"kind":"Name","value":"relationshipsDeleted"}}]}}]}}]} as unknown as DocumentNode<DeletePropagation_MutationMutation, DeletePropagation_MutationMutationVariables>;
+export const DeleteRecording_MutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteRecording_Mutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteRecordings"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodesDeleted"}},{"kind":"Field","name":{"kind":"Name","value":"relationshipsDeleted"}}]}}]}}]} as unknown as DocumentNode<DeleteRecording_MutationMutation, DeleteRecording_MutationMutationVariables>;
 export const CreateSampleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateSample"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SampleCreateInput"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createSamples"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"samples"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<CreateSampleMutation, CreateSampleMutationVariables>;
+export const DeleteSample_MutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteSample_Mutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteSamples"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodesDeleted"}},{"kind":"Field","name":{"kind":"Name","value":"relationshipsDeleted"}}]}}]}}]} as unknown as DocumentNode<DeleteSample_MutationMutation, DeleteSample_MutationMutationVariables>;
