@@ -7,15 +7,14 @@ import { typeDefs } from '@/lib/typeDefs';
 import { Neo4jGraphQL } from '@neo4j/graphql';
 import { Neo4jGraphQLCallback } from '@neo4j/graphql/dist/types';
 import { createYoga } from 'graphql-yoga';
+import { nanoid } from 'nanoid';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Session } from 'next-auth';
 import { getServerSession } from 'next-auth/next';
 
 
 const codeCallback: Neo4jGraphQLCallback = async (_parent, _args, context) => {
-  console.log('RUN!', context);
-  // const session = await getServerSession(authOptions);
-  const code = await getNextCodeAndIncrement((context.session as Session).user.id, 'Recording');
+  const code = await getNextCodeAndIncrement((context.session as Session).user.id, 'recording');
   return code;
 };
 
@@ -29,7 +28,8 @@ const neoSchema = new Neo4jGraphQL({
     },
     populatedBy: {
       callbacks: {
-        code: codeCallback
+        // @TODO Resolve callback bug (https://github.com/neo4j/graphql/issues/3822)
+        code: () => nanoid(5)
       }
     }
   },
