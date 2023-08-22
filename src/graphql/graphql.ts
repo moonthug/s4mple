@@ -749,6 +749,7 @@ export type PlateConnectWhere = {
 };
 
 export type PlateCreateInput = {
+  code: Scalars['String']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
   observations?: InputMaybe<PlateObservationsFieldInput>;
   propagations?: InputMaybe<PlatePropagationsFieldInput>;
@@ -915,6 +916,7 @@ export type PlateObservationsUpdateFieldInput = {
 };
 
 export type PlateOnCreateInput = {
+  code: Scalars['String']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1243,6 +1245,7 @@ export type PlateUniqueWhere = {
 };
 
 export type PlateUpdateInput = {
+  code?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   observations?: InputMaybe<Array<PlateObservationsUpdateFieldInput>>;
   propagations?: InputMaybe<Array<PlatePropagationsUpdateFieldInput>>;
@@ -1549,6 +1552,7 @@ export type PropagationConnectWhere = {
 };
 
 export type PropagationCreateInput = {
+  code: Scalars['String']['input'];
   observations?: InputMaybe<PropagationObservationsFieldInput>;
   plate?: InputMaybe<PropagationPlateFieldInput>;
   plates?: InputMaybe<PropagationPlatesFieldInput>;
@@ -1726,8 +1730,7 @@ export type PropagationObservationsUpdateFieldInput = {
 };
 
 export type PropagationOnCreateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: InputMaybe<Scalars['Boolean']['input']>;
+  code: Scalars['String']['input'];
 };
 
 export type PropagationOptions = {
@@ -2712,6 +2715,7 @@ export type PropagationUniqueWhere = {
 };
 
 export type PropagationUpdateInput = {
+  code?: InputMaybe<Scalars['String']['input']>;
   observations?: InputMaybe<Array<PropagationObservationsUpdateFieldInput>>;
   plate?: InputMaybe<PropagationPlateUpdateFieldInput>;
   plates?: InputMaybe<Array<PropagationPlatesUpdateFieldInput>>;
@@ -3406,6 +3410,7 @@ export type RecordingConnectWhere = {
 };
 
 export type RecordingCreateInput = {
+  code: Scalars['String']['input'];
   description: Scalars['String']['input'];
   name: Scalars['String']['input'];
   samples?: InputMaybe<RecordingSamplesFieldInput>;
@@ -3426,6 +3431,7 @@ export type RecordingEdge = {
 };
 
 export type RecordingOnCreateInput = {
+  code: Scalars['String']['input'];
   description: Scalars['String']['input'];
   name: Scalars['String']['input'];
 };
@@ -3655,6 +3661,7 @@ export type RecordingUniqueWhere = {
 };
 
 export type RecordingUpdateInput = {
+  code?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   samples?: InputMaybe<Array<RecordingSamplesUpdateFieldInput>>;
@@ -3842,6 +3849,7 @@ export type SampleConnectWhere = {
 };
 
 export type SampleCreateInput = {
+  code: Scalars['String']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
   latitude?: InputMaybe<Scalars['Float']['input']>;
   longitude?: InputMaybe<Scalars['Float']['input']>;
@@ -4011,6 +4019,7 @@ export type SampleObservationsUpdateFieldInput = {
 };
 
 export type SampleOnCreateInput = {
+  code: Scalars['String']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
   latitude?: InputMaybe<Scalars['Float']['input']>;
   longitude?: InputMaybe<Scalars['Float']['input']>;
@@ -4368,6 +4377,7 @@ export type SampleUniqueWhere = {
 };
 
 export type SampleUpdateInput = {
+  code?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   latitude?: InputMaybe<Scalars['Float']['input']>;
   latitude_ADD?: InputMaybe<Scalars['Float']['input']>;

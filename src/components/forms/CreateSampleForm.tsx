@@ -1,5 +1,6 @@
 'use client';
 
+import { getNextCodeAction } from '@/actions/getNextCode';
 import Barcode, { Renderer } from '@/components/Barcode';
 import { SampleType } from '@/graphql/graphql';
 import { uppercaseFirst } from '@/lib/utils/text';
@@ -11,10 +12,11 @@ import { LuPrinter, LuSave } from 'react-icons/lu';
 
 
 export type CreateSampleFormData = {
+  code: string,
   description: string,
   type: SampleType,
   longitude: number,
-  latitude: number
+  latitude: number,
 };
 
 type CreateSampleFormProps = {
@@ -32,6 +34,7 @@ const CreateSampleForm: React.FC<CreateSampleFormProps> = ({
   } = useForm<CreateSampleFormData>();
 
   const [location, setLocation] = useState([0, 0]);
+  const [code, setCode] = useState<string | null>(null);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -51,6 +54,13 @@ const CreateSampleForm: React.FC<CreateSampleFormProps> = ({
     setValue('longitude', location[0]);
     setValue('latitude', location[1]);
   }, [location]);
+
+  useEffect(() => {
+    getNextCodeAction('sample').then(code => {
+      setValue('code', code);
+      setCode(code);
+    });
+  }, []);
 
   return (
     <form
@@ -86,7 +96,7 @@ const CreateSampleForm: React.FC<CreateSampleFormProps> = ({
         <pre>{ JSON.stringify(location) }</pre>
       </div>
       <div>
-        <Barcode options={ { format: 'code128' } } renderer={ Renderer.canvas } value="S00001"/>
+        { code && <Barcode options={ { format: 'code128' } } renderer={ Renderer.canvas } value={ code }/> }
       </div>
       <div className="flex gap-4 justify-end">
         <Button

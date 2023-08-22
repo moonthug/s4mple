@@ -7,7 +7,6 @@ import { typeDefs } from '@/lib/typeDefs';
 import { Neo4jGraphQL } from '@neo4j/graphql';
 import { Neo4jGraphQLCallback } from '@neo4j/graphql/dist/types';
 import { createYoga } from 'graphql-yoga';
-import { nanoid } from 'nanoid';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Session } from 'next-auth';
 import { getServerSession } from 'next-auth/next';
@@ -26,12 +25,11 @@ const neoSchema = new Neo4jGraphQL({
       key: process.env.NEXTAUTH_SECRET,
       globalAuthentication: true,
     },
-    populatedBy: {
-      callbacks: {
-        // @TODO Resolve callback bug (https://github.com/neo4j/graphql/issues/3822)
-        code: () => nanoid(5)
-      }
-    }
+    // populatedBy: {
+    //   callbacks: {
+    //     code: codeCallback
+    //   }
+    // }
   },
   resolvers: {
     Mutation: {

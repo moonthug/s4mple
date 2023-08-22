@@ -1,11 +1,12 @@
 'use client';
 
+import { getNextCodeAction } from '@/actions/getNextCode';
 import Barcode, { Renderer } from '@/components/Barcode';
 import { graphql } from '@/graphql/gql';
 import { useQuery } from '@apollo/client';
 import { Button, Label, Select } from 'flowbite-react';
 import print from 'print-js';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { LuPrinter, LuSave } from 'react-icons/lu';
 
@@ -20,6 +21,7 @@ const GetRecipes_Query = graphql(`
 `);
 
 export type CreatePropagationFormData = {
+  code: string;
   recipeId: string;
 };
 
@@ -35,8 +37,18 @@ const CreatePropagationForm: React.FC<CreatePropagationFormProps> = ({
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors }
   } = useForm<CreatePropagationFormData>();
+
+  const [code, setCode] = useState<string | null>(null);
+
+  useEffect(() => {
+    getNextCodeAction('propagation').then(code => {
+      setValue('code', code);
+      setCode(code);
+    });
+  }, []);
 
   return (
     <form
@@ -57,7 +69,7 @@ const CreatePropagationForm: React.FC<CreatePropagationFormProps> = ({
         </Select>
       </div>
       <div>
-        <Barcode options={ { format: 'code128' } } renderer={ Renderer.canvas } value="P00001"/>
+        { code && <Barcode options={ { format: 'code128' } } renderer={ Renderer.canvas } value={ code }/> }
       </div>
       <div className="flex gap-4 justify-end">
         <Button

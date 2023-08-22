@@ -47,6 +47,7 @@ const CreateSampleModal: React.FC<CreateModalProps> = ({
     createSample({
       variables: {
         input: {
+          code: data.code,
           description: data.description,
           type: data.type,
           longitude: data.longitude,

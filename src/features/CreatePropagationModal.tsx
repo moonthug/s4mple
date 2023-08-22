@@ -65,6 +65,7 @@ const CreatePropagationModal: React.FC<CreateModalProps> = ({
     createPropagation({
       variables: {
         input: {
+          code: data.code,
           recipe: {
             connect: {
               where: {

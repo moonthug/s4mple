@@ -1,12 +1,12 @@
 'use client';
 
+import { getNextCodeAction } from '@/actions/getNextCode';
 import { graphql } from '@/graphql/gql';
 import { useMutation } from '@apollo/client';
 import { Button, Label, TextInput } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { getNextCodeAction } from '../../actions/getNextCode';
 
 
 const CreateRecording_Mutation = graphql(`
@@ -26,7 +26,7 @@ const CreateRecordingForm: React.FC = () => {
   const router = useRouter();
 
   useEffect(() => {
-    getNextCodeAction('Recording').then(code => setCode(code));
+    getNextCodeAction('recording').then(code => setCode(code));
   }, []);
 
   return (
@@ -38,7 +38,8 @@ const CreateRecordingForm: React.FC = () => {
           variables: {
             input: {
               name: (e.currentTarget.name as any as { value: string }).value,
-              description: e.currentTarget.description.value
+              description: e.currentTarget.description.value,
+              code
             }
           }
         })

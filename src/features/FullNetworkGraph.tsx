@@ -56,7 +56,7 @@ export const FullNetworkGraph: React.FC<FullNetworkGraphProps> = ({}) => {
     : { nodes: [], edges: [] };
 
   return (
-    <div className="relative w-full h-full">
+    <div className="block w-full h-full">
       <GraphCanvas labelType="all" nodes={ nodes } edges={ edges }/>
     </div>
   );
