@@ -1,23 +1,30 @@
 import { FragmentType, useFragment } from '@/graphql/fragment-masking';
 import { graphql } from '@/graphql/gql';
+import { objectToGraph } from '@/lib/utils/graph';
 import { GraphCanvas } from 'reagraph';
 
 
 const RecordingNetworkGraph_RecordingFragment = graphql(/* GraphQL */ `
   fragment RecordingNetworkGraph_RecordingFragment on Recording {
     samples {
+      __typename
       id
       propagations {
+        __typename
         id
         propagations {
+          __typename
           id
           propagations {
+            __typename
             id
           }
         }
         plates {
+          __typename
           id
           propagations {
+            __typename
             id
           }
         }
@@ -39,28 +46,11 @@ export const RecordingNetworkGraph: React.FC<RecordingNetworkGraphProps> = ({
 }) => {
   const recording = useFragment(RecordingNetworkGraph_RecordingFragment, recordingFragmentRef);
 
+  const { nodes, edges } = objectToGraph(recording);
+
   return (
     <div className="relative" style={ { height: `${ height }px`, width: `${ width }px` } }>
-      <GraphCanvas
-        nodes={ [
-          {
-            id: 'n-1',
-            label: '1'
-          },
-          {
-            id: 'n-2',
-            label: '2'
-          }
-        ] }
-        edges={ [
-          {
-            id: '1->2',
-            source: 'n-1',
-            target: 'n-2',
-            label: 'Edge 1-2'
-          }
-        ] }
-      />
+      <GraphCanvas labelType="all" layoutType="treeLr2d" nodes={ nodes } edges={ edges }/>
     </div>
   );
 };

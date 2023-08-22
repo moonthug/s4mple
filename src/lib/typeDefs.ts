@@ -16,6 +16,7 @@ type User {
 
 type Recording {
   id: ID! @id(autogenerate: true)
+  code: String! @populatedBy(callback: "code", operations: [CREATE])
   name: String!
   description: String!
 
@@ -37,6 +38,7 @@ enum SampleType {
 
 type Sample {
   id: ID! @id(autogenerate: true)
+  code: String! @populatedBy(callback: "code", operations: [CREATE])
   description: String
   type: SampleType!
   longitude: Float
@@ -56,6 +58,7 @@ type Sample {
 
 type Propagation {
   id: ID! @id(autogenerate: true)
+  code: String! @populatedBy(callback: "code", operations: [CREATE])
 
   createdAt: DateTime! @timestamp(operations: [CREATE])
   updatedAt: DateTime! @timestamp(operations: [CREATE, UPDATE])
@@ -75,6 +78,7 @@ type Propagation {
 
 type Plate {
   id: ID! @id(autogenerate: true)
+  code: String! @populatedBy(callback: "code", operations: [CREATE])
   description: String
 
   createdAt: DateTime! @timestamp(operations: [CREATE])

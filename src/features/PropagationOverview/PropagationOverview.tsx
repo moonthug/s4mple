@@ -17,6 +17,7 @@ import PropagationDendrogram from './PropagationDendrogram';
 const PropagationOverview_PropagationFragment = graphql(/* GraphQL */ `
   fragment PropagationOverview_PropagationFragment on Propagation {
     id
+    code
     recipe {
       name
     }
@@ -47,7 +48,7 @@ export const PropagationOverview: React.FC<PropagationOverviewProps> = ({
 
       <div className="flex gap-8">
         <div className="flex-grow">
-          <EntityTitleId id={ propagation.id } title="Propagation"/>
+          <EntityTitleId code={ propagation.code } title="Propagation"/>
           <dl>
             <dt className="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Recipe</dt>
             <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{ propagation.recipe.name }</dd>

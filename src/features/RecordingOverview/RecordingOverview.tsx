@@ -18,6 +18,7 @@ import { SampleList } from './SampleList';
 const RecordingOverview_RecordingFragment = graphql(/* GraphQL */ `
   fragment RecordingOverview_RecordingFragment on Recording {
     id
+    code
     name
     description
     createdAt
@@ -60,7 +61,7 @@ export const RecordingOverview: React.FC<RecordingProps> = ({
 
       <div className="flex gap-8">
         <div className="flex-grow">
-          <EntityTitleId id={ recording.id } title={ recording.name }/>
+          <EntityTitleId code={ recording.code } title={ recording.name }/>
 
           <dl>
             <dt className="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Description</dt>

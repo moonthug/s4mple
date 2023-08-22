@@ -7,19 +7,20 @@ import SampleMap from '@/features/RecordingOverview/SampleMap';
 import { SamplePropagationList } from '@/features/SampleOverview/SamplePropagationList';
 import { FragmentType, useFragment } from '@/graphql/fragment-masking';
 import { graphql } from '@/graphql/gql';
+import { objectHasGeolocation } from '@/lib/utils/geo';
 import { Button, Tabs } from 'flowbite-react';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import React, { useState } from 'react';
 import { LuBeer } from 'react-icons/lu';
 import { PiGraphFill, PiMapPinBold } from 'react-icons/pi';
-import { objectHasGeolocation } from '../../utils/geo';
 import SampleDendrogram from './SampleDendrogram';
 
 
 const SampleOverview_SampleFragment = graphql(/* GraphQL */ `
   fragment SampleOverview_SampleFragment on Sample {
     id
+    code
     description
     longitude
     latitude
@@ -50,7 +51,7 @@ export const SampleOverview: React.FC<SampleOverviewProps> = ({
 
       <div className="flex gap-8">
         <div className="flex-grow">
-          <EntityTitleId id={ sample.id } title="Sample"/>
+          <EntityTitleId code={ sample.code } title="Sample"/>
           <dl>
             <dt className="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Description</dt>
             <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{ sample.description }</dd>

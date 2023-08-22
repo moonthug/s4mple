@@ -12,6 +12,7 @@ if (process.env.NODE_ENV !== 'production') {  // Adds messages only in a dev env
 }
 
 const httpLink = new HttpLink({
+  credentials: 'include',
   uri: SERVER_URL,
 });
 
@@ -38,6 +39,7 @@ const errorLink = onError(({
 
 export const createClientConfig = () => ({
   cache: new NextSSRInMemoryCache(),
+
   link: from(
     typeof window === 'undefined'
       ? [

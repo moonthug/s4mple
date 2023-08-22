@@ -4,8 +4,9 @@ import { graphql } from '@/graphql/gql';
 import { useMutation } from '@apollo/client';
 import { Button, Label, TextInput } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { getNextCodeAction } from '../../actions/getNextCode';
 
 
 const CreateRecording_Mutation = graphql(`
@@ -20,8 +21,13 @@ const CreateRecording_Mutation = graphql(`
 
 const CreateRecordingForm: React.FC = () => {
   const [createRecording, { data, loading, error }] = useMutation(CreateRecording_Mutation);
+  const [code, setCode] = useState('');
 
   const router = useRouter();
+
+  useEffect(() => {
+    getNextCodeAction('Recording').then(code => setCode(code));
+  }, []);
 
   return (
     <form
@@ -72,6 +78,15 @@ const CreateRecordingForm: React.FC = () => {
           placeholder="My recording description..."
           required
         />
+      </div>
+      <div>
+        <div className="mb-2 block">
+          <Label
+            htmlFor="code"
+            value="Code"
+          />
+        </div>
+        <pre>{ code }</pre>
       </div>
       <Button
         type="submit"

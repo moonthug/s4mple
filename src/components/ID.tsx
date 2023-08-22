@@ -1,6 +1,6 @@
+import { shortenId } from '@/lib/utils/text';
 import { Tooltip } from 'flowbite-react';
 import React, { PropsWithChildren } from 'react';
-import { shortenId } from '../utils/text';
 
 
 const ID: React.FC<PropsWithChildren> = ({ children }) => {

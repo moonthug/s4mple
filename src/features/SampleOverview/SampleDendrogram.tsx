@@ -1,6 +1,6 @@
 import Dendrogram, { NodeShape, NodeType } from '@/components/graph/Dendrogram';
+import { shortenId } from '@/lib/utils/text';
 import { Sample } from '@/models/Sample';
-import { shortenId } from '../../utils/text';
 
 
 type SampleDendrogramProps = {

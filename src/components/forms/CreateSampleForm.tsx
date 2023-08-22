@@ -2,12 +2,12 @@
 
 import Barcode, { Renderer } from '@/components/Barcode';
 import { SampleType } from '@/graphql/graphql';
+import { uppercaseFirst } from '@/lib/utils/text';
 import { Button, Label, Select, TextInput } from 'flowbite-react';
 import print from 'print-js';
 import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { LuPrinter, LuSave } from 'react-icons/lu';
-import { uppercaseFirst } from '../../utils/text';
 
 
 export type CreateSampleFormData = {

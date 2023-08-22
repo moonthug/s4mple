@@ -14,6 +14,7 @@ CREATE (u:User {
 
 CREATE (r1:Recording {
   id:          'r0000000-0000-0000-0000-000000000001',
+  code:        'RC0001',
   name:        'Caunton 1',
   description: 'Recording samples in Caunton village',
   createdAt:   datetime(),
@@ -21,6 +22,7 @@ CREATE (r1:Recording {
 })
 CREATE (r2:Recording {
   id:          'r0000000-0000-0000-0000-000000000002',
+  code:        'RC0002',
   name:        'Caunton 2',
   description: 'Recording samples in Caunton village',
   createdAt:   datetime(),
@@ -60,6 +62,7 @@ CREATE (re3:Recipe {
 
 CREATE (s1:Sample {
   id:          's0000000-0000-0000-0000-000000000001',
+  code:        'SP0001',
   description: 'Plum',
   type:        'SWAB',
   longitude:   -0.885666,
@@ -69,6 +72,7 @@ CREATE (s1:Sample {
 })
 CREATE (s2:Sample {
   id:          's0000000-0000-0000-0000-000000000002',
+  code:        'SP0002',
   description: 'Grape',
   type:        'SAMPLE',
   longitude:   -0.891537,
@@ -78,6 +82,7 @@ CREATE (s2:Sample {
 })
 CREATE (s3:Sample {
   id:          's0000000-0000-0000-0000-000000000003',
+  code:        'SP0003',
   description: 'Wheat Kernel',
   longitude:   -0.884089,
   latitude:    53.137588,
@@ -86,6 +91,7 @@ CREATE (s3:Sample {
 })
 CREATE (s4:Sample {
   id:          's0000000-0000-0000-0000-000000000004',
+  code:        'SP0004',
   description: 'Black Berry',
   longitude:   -0.884099,
   latitude:    53.137588,
@@ -95,62 +101,74 @@ CREATE (s4:Sample {
 
 CREATE (pr1:Propagation {
   id:        'pr000000-0000-0000-0000-000000000001',
+  code:      'PR0001',
   createdAt: datetime(),
   updatedAt: datetime()
 })
 CREATE (pr2:Propagation {
   id:        'pr000000-0000-0000-0000-000000000002',
+  code:      'PR0002',
   createdAt: datetime(),
   updatedAt: datetime()
 })
 CREATE (pr3:Propagation {
   id:        'pr000000-0000-0000-0000-000000000003',
+  code:      'PR0003',
   createdAt: datetime(),
   updatedAt: datetime()
 })
 CREATE (pr4:Propagation {
   id:        'pr000000-0000-0000-0000-000000000004',
+  code:      'PR0004',
   createdAt: datetime(),
   updatedAt: datetime()
 })
 
 CREATE (pl1:Plate {
   id:        'pl000000-0000-0000-0000-000000000001',
+  code:      'PL0001',
   createdAt: datetime(),
   updatedAt: datetime()
 })
 CREATE (pl2:Plate {
   id:        'pl000000-0000-0000-0000-000000000002',
+  code:      'PL0002',
   createdAt: datetime(),
   updatedAt: datetime()
 })
 CREATE (pl3:Plate {
   id:        'pl000000-0000-0000-0000-000000000003',
+  code:      'PL0003',
   createdAt: datetime(),
   updatedAt: datetime()
 })
 CREATE (pl4:Plate {
   id:        'pl000000-0000-0000-0000-000000000004',
+  code:      'PL0004',
   createdAt: datetime(),
   updatedAt: datetime()
 })
 CREATE (pl5:Plate {
   id:        'pl000000-0000-0000-0000-000000000005',
+  code:      'PL0005',
   createdAt: datetime(),
   updatedAt: datetime()
 })
 CREATE (pl6:Plate {
   id:        'pl000000-0000-0000-0000-000000000006',
+  code:      'PL0006',
   createdAt: datetime(),
   updatedAt: datetime()
 })
 CREATE (pl7:Plate {
   id:        'pl000000-0000-0000-0000-000000000007',
+  code:      'PL0007',
   createdAt: datetime(),
   updatedAt: datetime()
 })
 CREATE (pl8:Plate {
   id:        'pl000000-0000-0000-0000-000000000008',
+  code:      'PL0008',
   createdAt: datetime(),
   updatedAt: datetime()
 })

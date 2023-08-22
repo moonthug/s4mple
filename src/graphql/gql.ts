@@ -20,22 +20,22 @@ const documents = {
     "\n  query GetRecipes {\n    recipes(where: { type: WORT }) {\n      id\n      name\n    }\n  }\n": types.GetRecipesDocument,
     "\n  mutation CreateRecording($input: [RecordingCreateInput!]!) {\n    createRecordings(input: $input) {\n      recordings {\n        id\n      }\n    }\n  }\n": types.CreateRecordingDocument,
     "\n  mutation CreatePropagation($input: [PropagationCreateInput!]!) {\n    createPropagations(input: $input) {\n      propagations {\n        id\n      }\n    }\n  }\n": types.CreatePropagationDocument,
-    "\n  fragment PropagationListItem_PropagationFragment on Propagation {\n    id\n    createdAt\n    plates {\n      id\n    }\n    propagations {\n      id\n    }\n    recipe {\n      id\n      name\n    }\n  }\n": types.PropagationListItem_PropagationFragmentFragmentDoc,
+    "\n  query GetAllNodes {\n    recordings {\n      __typename\n      id\n      code\n      samples {\n        __typename\n        id\n        code\n        propagations {\n          __typename\n          id\n          code\n          plates {\n            __typename\n            id\n            code\n            propagations {\n              __typename\n              id\n              code\n            }\n          }\n          propagations {\n            __typename\n            id\n            code\n            propagations {\n              __typename\n              id\n              code\n            }\n          }\n        }\n      }\n    }\n  }\n": types.GetAllNodesDocument,
+    "\n  fragment PropagationListItem_PropagationFragment on Propagation {\n    id\n    code\n    createdAt\n    plates {\n      id\n    }\n    propagations {\n      id\n    }\n    recipe {\n      id\n      name\n    }\n  }\n": types.PropagationListItem_PropagationFragmentFragmentDoc,
     "\n  mutation DeletePropagation_Mutation($id: ID!) {\n    deletePropagations(where: { id: $id }) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n": types.DeletePropagation_MutationDocument,
     "\n  fragment PlateList_PropagationFragment on Propagation {\n    id\n    plates {\n      id\n      createdAt\n      recipe {\n        id\n        name\n      }\n    }\n  }\n": types.PlateList_PropagationFragmentFragmentDoc,
-    "\n  fragment PropagationOverview_PropagationFragment on Propagation {\n    id\n    recipe {\n      name\n    }\n    ...PlateList_PropagationFragment\n    ...PropagationList_PropagationFragment\n  }\n": types.PropagationOverview_PropagationFragmentFragmentDoc,
+    "\n  fragment PropagationOverview_PropagationFragment on Propagation {\n    id\n    code\n    recipe {\n      name\n    }\n    ...PlateList_PropagationFragment\n    ...PropagationList_PropagationFragment\n  }\n": types.PropagationOverview_PropagationFragmentFragmentDoc,
     "\n  fragment PropagationList_PropagationFragment on Propagation {\n    propagations {\n      ...PropagationListItem_PropagationFragment\n    }\n  }\n": types.PropagationList_PropagationFragmentFragmentDoc,
-    "\n  fragment RecordingList_QueryFragment on Query {\n    recordings {\n      id\n      name\n      description\n      createdAt\n      samples {\n        id\n      }\n    }\n  }\n": types.RecordingList_QueryFragmentFragmentDoc,
+    "\n  fragment RecordingList_QueryFragment on Query {\n    recordings {\n      id\n      code\n      name\n      description\n      createdAt\n      samples {\n        id\n      }\n    }\n  }\n": types.RecordingList_QueryFragmentFragmentDoc,
     "\n  mutation DeleteRecording_Mutation($id: ID!) {\n    deleteRecordings(where: { id: $id }) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n": types.DeleteRecording_MutationDocument,
     "\n  mutation CreateSample($input: [SampleCreateInput!]!) {\n    createSamples(input: $input) {\n      samples {\n        id\n      }\n    }\n  }\n": types.CreateSampleDocument,
-    "\n  fragment RecordingDendrogram_RecordingFragment on Recording {\n    samples {\n      id\n      propagations {\n        id\n        plates {\n          id\n        }\n      }\n    }\n  }\n": types.RecordingDendrogram_RecordingFragmentFragmentDoc,
-    "\n  fragment RecordingNetworkGraph_RecordingFragment on Recording {\n    samples {\n      id\n      propagations {\n        id\n        propagations {\n          id\n          propagations {\n            id\n          }\n        }\n        plates {\n          id\n          propagations {\n            id\n          }\n        }\n      }\n    }\n  }\n": types.RecordingNetworkGraph_RecordingFragmentFragmentDoc,
-    "\n  fragment RecordingOverview_RecordingFragment on Recording {\n    id\n    name\n    description\n    createdAt\n    updatedAt\n    ...RecordingSampleMap_RecordingFragment\n    ...RecordingNetworkGraph_RecordingFragment\n    ...SampleList_RecordingFragment\n  }\n": types.RecordingOverview_RecordingFragmentFragmentDoc,
+    "\n  fragment RecordingNetworkGraph_RecordingFragment on Recording {\n    samples {\n      __typename\n      id\n      propagations {\n        __typename\n        id\n        propagations {\n          __typename\n          id\n          propagations {\n            __typename\n            id\n          }\n        }\n        plates {\n          __typename\n          id\n          propagations {\n            __typename\n            id\n          }\n        }\n      }\n    }\n  }\n": types.RecordingNetworkGraph_RecordingFragmentFragmentDoc,
+    "\n  fragment RecordingOverview_RecordingFragment on Recording {\n    id\n    code\n    name\n    description\n    createdAt\n    updatedAt\n    ...RecordingSampleMap_RecordingFragment\n    ...RecordingNetworkGraph_RecordingFragment\n    ...SampleList_RecordingFragment\n  }\n": types.RecordingOverview_RecordingFragmentFragmentDoc,
     "\n  fragment RecordingSampleMap_RecordingFragment on Recording {\n    samples {\n      longitude\n      latitude\n    }\n  }\n": types.RecordingSampleMap_RecordingFragmentFragmentDoc,
-    "\n  fragment SampleList_RecordingFragment on Recording {\n    samples {\n      id\n      description\n      longitude\n      latitude\n      createdAt\n      propagations {\n        id\n      }\n    }\n  }\n": types.SampleList_RecordingFragmentFragmentDoc,
+    "\n  fragment SampleList_RecordingFragment on Recording {\n    samples {\n      id\n      code\n      description\n      longitude\n      latitude\n      createdAt\n      propagations {\n        id\n      }\n    }\n  }\n": types.SampleList_RecordingFragmentFragmentDoc,
     "\n  mutation DeleteSample_Mutation($id: ID!) {\n    deleteSamples(where: { id: $id }) {\n      nodesDeleted\n      relationshipsDeleted\n    }\n  }\n": types.DeleteSample_MutationDocument,
     "\n  fragment SampleMap_SampleFragment on Sample {\n    longitude\n    latitude\n  }\n": types.SampleMap_SampleFragmentFragmentDoc,
-    "\n  fragment SampleOverview_SampleFragment on Sample {\n    id\n    description\n    longitude\n    latitude\n    ...SampleMap_SampleFragment\n    ...PropagationList_SampleFragment\n  }\n": types.SampleOverview_SampleFragmentFragmentDoc,
+    "\n  fragment SampleOverview_SampleFragment on Sample {\n    id\n    code\n    description\n    longitude\n    latitude\n    ...SampleMap_SampleFragment\n    ...PropagationList_SampleFragment\n  }\n": types.SampleOverview_SampleFragmentFragmentDoc,
     "\n  fragment PropagationList_SampleFragment on Sample {\n    propagations {\n      ...PropagationListItem_PropagationFragment\n    }\n  }\n": types.PropagationList_SampleFragmentFragmentDoc,
 };
 
@@ -84,7 +84,11 @@ export function graphql(source: "\n  mutation CreatePropagation($input: [Propaga
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment PropagationListItem_PropagationFragment on Propagation {\n    id\n    createdAt\n    plates {\n      id\n    }\n    propagations {\n      id\n    }\n    recipe {\n      id\n      name\n    }\n  }\n"): (typeof documents)["\n  fragment PropagationListItem_PropagationFragment on Propagation {\n    id\n    createdAt\n    plates {\n      id\n    }\n    propagations {\n      id\n    }\n    recipe {\n      id\n      name\n    }\n  }\n"];
+export function graphql(source: "\n  query GetAllNodes {\n    recordings {\n      __typename\n      id\n      code\n      samples {\n        __typename\n        id\n        code\n        propagations {\n          __typename\n          id\n          code\n          plates {\n            __typename\n            id\n            code\n            propagations {\n              __typename\n              id\n              code\n            }\n          }\n          propagations {\n            __typename\n            id\n            code\n            propagations {\n              __typename\n              id\n              code\n            }\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetAllNodes {\n    recordings {\n      __typename\n      id\n      code\n      samples {\n        __typename\n        id\n        code\n        propagations {\n          __typename\n          id\n          code\n          plates {\n            __typename\n            id\n            code\n            propagations {\n              __typename\n              id\n              code\n            }\n          }\n          propagations {\n            __typename\n            id\n            code\n            propagations {\n              __typename\n              id\n              code\n            }\n          }\n        }\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment PropagationListItem_PropagationFragment on Propagation {\n    id\n    code\n    createdAt\n    plates {\n      id\n    }\n    propagations {\n      id\n    }\n    recipe {\n      id\n      name\n    }\n  }\n"): (typeof documents)["\n  fragment PropagationListItem_PropagationFragment on Propagation {\n    id\n    code\n    createdAt\n    plates {\n      id\n    }\n    propagations {\n      id\n    }\n    recipe {\n      id\n      name\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -96,7 +100,7 @@ export function graphql(source: "\n  fragment PlateList_PropagationFragment on P
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment PropagationOverview_PropagationFragment on Propagation {\n    id\n    recipe {\n      name\n    }\n    ...PlateList_PropagationFragment\n    ...PropagationList_PropagationFragment\n  }\n"): (typeof documents)["\n  fragment PropagationOverview_PropagationFragment on Propagation {\n    id\n    recipe {\n      name\n    }\n    ...PlateList_PropagationFragment\n    ...PropagationList_PropagationFragment\n  }\n"];
+export function graphql(source: "\n  fragment PropagationOverview_PropagationFragment on Propagation {\n    id\n    code\n    recipe {\n      name\n    }\n    ...PlateList_PropagationFragment\n    ...PropagationList_PropagationFragment\n  }\n"): (typeof documents)["\n  fragment PropagationOverview_PropagationFragment on Propagation {\n    id\n    code\n    recipe {\n      name\n    }\n    ...PlateList_PropagationFragment\n    ...PropagationList_PropagationFragment\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -104,7 +108,7 @@ export function graphql(source: "\n  fragment PropagationList_PropagationFragmen
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment RecordingList_QueryFragment on Query {\n    recordings {\n      id\n      name\n      description\n      createdAt\n      samples {\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  fragment RecordingList_QueryFragment on Query {\n    recordings {\n      id\n      name\n      description\n      createdAt\n      samples {\n        id\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  fragment RecordingList_QueryFragment on Query {\n    recordings {\n      id\n      code\n      name\n      description\n      createdAt\n      samples {\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  fragment RecordingList_QueryFragment on Query {\n    recordings {\n      id\n      code\n      name\n      description\n      createdAt\n      samples {\n        id\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -116,15 +120,11 @@ export function graphql(source: "\n  mutation CreateSample($input: [SampleCreate
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment RecordingDendrogram_RecordingFragment on Recording {\n    samples {\n      id\n      propagations {\n        id\n        plates {\n          id\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  fragment RecordingDendrogram_RecordingFragment on Recording {\n    samples {\n      id\n      propagations {\n        id\n        plates {\n          id\n        }\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  fragment RecordingNetworkGraph_RecordingFragment on Recording {\n    samples {\n      __typename\n      id\n      propagations {\n        __typename\n        id\n        propagations {\n          __typename\n          id\n          propagations {\n            __typename\n            id\n          }\n        }\n        plates {\n          __typename\n          id\n          propagations {\n            __typename\n            id\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  fragment RecordingNetworkGraph_RecordingFragment on Recording {\n    samples {\n      __typename\n      id\n      propagations {\n        __typename\n        id\n        propagations {\n          __typename\n          id\n          propagations {\n            __typename\n            id\n          }\n        }\n        plates {\n          __typename\n          id\n          propagations {\n            __typename\n            id\n          }\n        }\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment RecordingNetworkGraph_RecordingFragment on Recording {\n    samples {\n      id\n      propagations {\n        id\n        propagations {\n          id\n          propagations {\n            id\n          }\n        }\n        plates {\n          id\n          propagations {\n            id\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  fragment RecordingNetworkGraph_RecordingFragment on Recording {\n    samples {\n      id\n      propagations {\n        id\n        propagations {\n          id\n          propagations {\n            id\n          }\n        }\n        plates {\n          id\n          propagations {\n            id\n          }\n        }\n      }\n    }\n  }\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n  fragment RecordingOverview_RecordingFragment on Recording {\n    id\n    name\n    description\n    createdAt\n    updatedAt\n    ...RecordingSampleMap_RecordingFragment\n    ...RecordingNetworkGraph_RecordingFragment\n    ...SampleList_RecordingFragment\n  }\n"): (typeof documents)["\n  fragment RecordingOverview_RecordingFragment on Recording {\n    id\n    name\n    description\n    createdAt\n    updatedAt\n    ...RecordingSampleMap_RecordingFragment\n    ...RecordingNetworkGraph_RecordingFragment\n    ...SampleList_RecordingFragment\n  }\n"];
+export function graphql(source: "\n  fragment RecordingOverview_RecordingFragment on Recording {\n    id\n    code\n    name\n    description\n    createdAt\n    updatedAt\n    ...RecordingSampleMap_RecordingFragment\n    ...RecordingNetworkGraph_RecordingFragment\n    ...SampleList_RecordingFragment\n  }\n"): (typeof documents)["\n  fragment RecordingOverview_RecordingFragment on Recording {\n    id\n    code\n    name\n    description\n    createdAt\n    updatedAt\n    ...RecordingSampleMap_RecordingFragment\n    ...RecordingNetworkGraph_RecordingFragment\n    ...SampleList_RecordingFragment\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -132,7 +132,7 @@ export function graphql(source: "\n  fragment RecordingSampleMap_RecordingFragme
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment SampleList_RecordingFragment on Recording {\n    samples {\n      id\n      description\n      longitude\n      latitude\n      createdAt\n      propagations {\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  fragment SampleList_RecordingFragment on Recording {\n    samples {\n      id\n      description\n      longitude\n      latitude\n      createdAt\n      propagations {\n        id\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  fragment SampleList_RecordingFragment on Recording {\n    samples {\n      id\n      code\n      description\n      longitude\n      latitude\n      createdAt\n      propagations {\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  fragment SampleList_RecordingFragment on Recording {\n    samples {\n      id\n      code\n      description\n      longitude\n      latitude\n      createdAt\n      propagations {\n        id\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -144,7 +144,7 @@ export function graphql(source: "\n  fragment SampleMap_SampleFragment on Sample
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment SampleOverview_SampleFragment on Sample {\n    id\n    description\n    longitude\n    latitude\n    ...SampleMap_SampleFragment\n    ...PropagationList_SampleFragment\n  }\n"): (typeof documents)["\n  fragment SampleOverview_SampleFragment on Sample {\n    id\n    description\n    longitude\n    latitude\n    ...SampleMap_SampleFragment\n    ...PropagationList_SampleFragment\n  }\n"];
+export function graphql(source: "\n  fragment SampleOverview_SampleFragment on Sample {\n    id\n    code\n    description\n    longitude\n    latitude\n    ...SampleMap_SampleFragment\n    ...PropagationList_SampleFragment\n  }\n"): (typeof documents)["\n  fragment SampleOverview_SampleFragment on Sample {\n    id\n    code\n    description\n    longitude\n    latitude\n    ...SampleMap_SampleFragment\n    ...PropagationList_SampleFragment\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
