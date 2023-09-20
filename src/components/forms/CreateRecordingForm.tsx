@@ -1,7 +1,7 @@
 'use client';
 
 import { getNextCodeAction } from '@/actions/getNextCode';
-import { graphql } from '@/graphql/gql';
+import { graphql } from '@/graphql/generated/gql';
 import { useMutation } from '@apollo/client';
 import { Button, Label, TextInput } from 'flowbite-react';
 import { useRouter } from 'next/navigation';

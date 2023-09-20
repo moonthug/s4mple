@@ -1,5 +1,5 @@
-import { FragmentType, useFragment } from '@/graphql/fragment-masking';
-import { graphql } from '@/graphql/gql';
+import { FragmentType, useFragment } from '@/graphql/generated/fragment-masking';
+import { graphql } from '@/graphql/generated/gql';
 import { objectToGraph } from '@/lib/utils/graph';
 import { GraphCanvas } from 'reagraph';
 

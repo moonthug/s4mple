@@ -1,8 +1,9 @@
 'use client';
 
 import { getNextCodeAction } from '@/actions/getNextCode';
-import Barcode, { Renderer } from '@/components/Barcode';
-import { SampleType } from '@/graphql/graphql';
+import Barcode from '@/components/Barcode';
+import Geolocation from '@/components/Geolocation';
+import { SampleType } from '@/graphql/generated/graphql';
 import { uppercaseFirst } from '@/lib/utils/text';
 import { Button, Label, Select, TextInput } from 'flowbite-react';
 import print from 'print-js';
@@ -30,20 +31,29 @@ const CreateSampleForm: React.FC<CreateSampleFormProps> = ({
     register,
     handleSubmit,
     setValue,
-    formState: { errors }
+    formState: { errors },
+    watch
   } = useForm<CreateSampleFormData>();
 
-  const [location, setLocation] = useState([0, 0]);
-  const [code, setCode] = useState<string | null>(null);
+  const [locationLoading, setLocationLoading] = useState(true);
+  const [codeLoading, setCodeLoading] = useState(true);
+
+  const latitude = watch('latitude');
+  const longitude = watch('longitude');
+  const code = watch('code');
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
-      setLocation([position.coords.longitude, position.coords.latitude]);
+      setValue('latitude', position.coords.latitude);
+      setValue('longitude', position.coords.longitude);
+      setLocationLoading(false);
     });
 
     navigator.geolocation.watchPosition(
       (position) => {
-        setLocation([position.coords.longitude, position.coords.latitude]);
+        setValue('latitude', position.coords.latitude);
+        setValue('longitude', position.coords.longitude);
+        setLocationLoading(false);
       },
       null,
       { enableHighAccuracy: true }
@@ -51,16 +61,13 @@ const CreateSampleForm: React.FC<CreateSampleFormProps> = ({
   }, []);
 
   useEffect(() => {
-    setValue('longitude', location[0]);
-    setValue('latitude', location[1]);
-  }, [location]);
-
-  useEffect(() => {
     getNextCodeAction('sample').then(code => {
       setValue('code', code);
-      setCode(code);
+      setCodeLoading(false);
     });
   }, []);
+
+  const formCanSubmit = (!codeLoading && !locationLoading);
 
   return (
     <form
@@ -84,6 +91,7 @@ const CreateSampleForm: React.FC<CreateSampleFormProps> = ({
           required
           { ...register('type') }
         >
+          <option>Select a Type...</option>
           { Object.values(SampleType).map(sampleType => (
             <option key={ sampleType } value={ sampleType }>{ uppercaseFirst(sampleType) }</option>))
           }
@@ -93,10 +101,10 @@ const CreateSampleForm: React.FC<CreateSampleFormProps> = ({
         <div className="mb-2 block">
           <Label value="Location"/>
         </div>
-        <pre>{ JSON.stringify(location) }</pre>
+        <Geolocation isLoading={ locationLoading } latitude={ latitude } longitude={ longitude }/>
       </div>
       <div>
-        { code && <Barcode options={ { format: 'code128' } } renderer={ Renderer.canvas } value={ code }/> }
+        <Barcode isLoading={ codeLoading } value={ code }/>
       </div>
       <div className="flex gap-4 justify-end">
         <Button
@@ -110,6 +118,7 @@ const CreateSampleForm: React.FC<CreateSampleFormProps> = ({
         </Button>
         <Button
           type="submit"
+          disabled={ !formCanSubmit }
           gradientDuoTone="greenToBlue"
         >
           <LuSave className="inline mr-3 h-5 w-5"/>

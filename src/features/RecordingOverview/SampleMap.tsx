@@ -1,6 +1,6 @@
 import EntityMap from '@/components/EntityMap';
-import { FragmentType, useFragment } from '@/graphql/fragment-masking';
-import { graphql } from '@/graphql/gql';
+import { FragmentType, useFragment } from '@/graphql/generated/fragment-masking';
+import { graphql } from '@/graphql/generated/gql';
 import React from 'react';
 import { CircleLayer, Layer, Source } from 'react-map-gl';
 

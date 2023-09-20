@@ -1,6 +1,6 @@
 'use client';
 
-import { graphql } from '@/graphql/gql';
+import { graphql } from '@/graphql/generated/gql';
 import { objectToGraph } from '@/lib/utils/graph';
 import { useQuery } from '@apollo/client';
 import { GraphCanvas } from 'reagraph';
@@ -21,23 +21,24 @@ const GetAllNodes_Query = graphql(`
           id
           code
           plates {
-            __typename
-            id
-            code
+            ...PlateFields_PlateFragment
             propagations {
-              __typename
-              id
-              code
+              ...PropagationFields_PropagationFragment
+              plates {
+                ...PlateFields_PlateFragment
+                propagations {
+                  ...PropagationFields_PropagationFragment
+                }
+              }
             }
           }
           propagations {
-            __typename
-            id
-            code
-            propagations {
-              __typename
-              id
-              code
+            ...PropagationFields_PropagationFragment
+            plates {
+              ...PlateFields_PlateFragment
+              propagations {
+                ...PropagationFields_PropagationFragment
+              }
             }
           }
         }

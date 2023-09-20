@@ -1,17 +1,19 @@
 'use client';
 
 import Divider from '@/components/Divider';
+import UpsertPropagationModal from '@/components/modal/UpsertPropagationModal';
 import EntityTitleId from '@/components/text/EntityTitleId';
-import CreatePropagationModal from '@/features/CreatePropagationModal';
+import PropagationNetworkGraph from '@/features/PropagationOverview/PropagationNetworkGraph';
 import { PropagationPropagationList } from '@/features/PropagationOverview/PropagationPropagationList';
-import { FragmentType, useFragment } from '@/graphql/fragment-masking';
-import { graphql } from '@/graphql/gql';
-import { Button, Tabs } from 'flowbite-react';
+import { FragmentType, useFragment } from '@/graphql/generated/fragment-masking';
+import { graphql } from '@/graphql/generated/gql';
+import { useMutation } from '@apollo/client';
+import { Button, Dropdown, Tabs } from 'flowbite-react';
 import React, { useState } from 'react';
-import { LuBeer, LuPipette } from 'react-icons/lu';
+import toast from 'react-hot-toast';
+import { LuFlaskConical, LuPipette } from 'react-icons/lu';
 import { PiGraphFill } from 'react-icons/pi';
 import { PlateList } from './PlateList';
-import PropagationDendrogram from './PropagationDendrogram';
 
 
 const PropagationOverview_PropagationFragment = graphql(/* GraphQL */ `
@@ -22,9 +24,26 @@ const PropagationOverview_PropagationFragment = graphql(/* GraphQL */ `
       name
     }
     ...PlateList_PropagationFragment
+    ...PropagationNetworkGraph_PropagationFragment
     ...PropagationList_PropagationFragment
+    ...UpsertPropagationModal_PropagationFragment
   }
 `);
+
+const DeletePropagation_Mutation = graphql(/* GraphQL */ `
+  mutation DeletePropagation_Mutation($id: ID!) {
+    deletePropagations(where: { id: $id }) {
+      nodesDeleted
+      relationshipsDeleted
+    }
+  }
+`);
+
+enum UpsertPropagationModalState {
+  InsertPropagation,
+  UpdatePropagation,
+  Closed
+}
 
 type PropagationOverviewProps = {
   propagationFragmentRef: FragmentType<typeof PropagationOverview_PropagationFragment>
@@ -34,16 +53,22 @@ export const PropagationOverview: React.FC<PropagationOverviewProps> = ({
   propagationFragmentRef
 }) => {
   const propagation = useFragment(PropagationOverview_PropagationFragment, propagationFragmentRef);
+  const [deletePropagation, { data, loading, error }] = useMutation(DeletePropagation_Mutation);
 
-  const [isCreatePropagationModalOpen, setIsCreatePropagationModalOpen] = useState(false);
+  const [upsertPropagationModalState, setUpsertPropagationModalState] = useState<UpsertPropagationModalState>(UpsertPropagationModalState.Closed);
 
   return (
     <div>
-      <CreatePropagationModal
-        isOpen={ isCreatePropagationModalOpen }
+      <UpsertPropagationModal
+        isOpen={ upsertPropagationModalState !== UpsertPropagationModalState.Closed }
         parentId={ propagation.id }
         parentType="propagation"
-        setIsOpen={ setIsCreatePropagationModalOpen }
+        propagationFragmentRef={
+          upsertPropagationModalState === UpsertPropagationModalState.UpdatePropagation ? propagation : undefined
+        }
+        setIsOpen={ () => {
+          setUpsertPropagationModalState(UpsertPropagationModalState.Closed);
+        } }
       />
 
       <div className="flex gap-8">
@@ -56,7 +81,7 @@ export const PropagationOverview: React.FC<PropagationOverviewProps> = ({
           <div className="flex gap-4">
             <Button
               gradientDuoTone="pinkToOrange"
-              onClick={ () => setIsCreatePropagationModalOpen(true) }
+              onClick={ () => setIsUpsertPropagationModalOpen(true) }
               outline
             >
               <LuPipette className="mr-3 h-5 w-5"/>
@@ -64,12 +89,41 @@ export const PropagationOverview: React.FC<PropagationOverviewProps> = ({
             </Button>
             <Button
               gradientDuoTone="purpleToBlue"
-              onClick={ () => setIsCreatePropagationModalOpen(true) }
+              onClick={ () => setUpsertPropagationModalState(UpsertPropagationModalState.InsertPropagation) }
               outline
             >
-              <LuBeer className="mr-3 h-5 w-5"/>
+              <LuFlaskConical className="mr-3 h-5 w-5"/>
               Create Propagation
             </Button>
+            <Dropdown
+              inline
+              className="bg-white inline-block"
+              arrowIcon={ false }
+              label={
+                <div className="p-2 rounded-lg hover:bg-gray-100">
+                  <svg
+                    className="w-5 h-5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 4 15">
+                    <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
+                  </svg>
+                </div>
+              }
+            >
+              <Dropdown.Item>Share</Dropdown.Item>
+              <Dropdown.Divider/>
+              <Dropdown.Item
+                onClick={ () => {
+                  setUpsertPropagationModalState(UpsertPropagationModalState.UpdatePropagation);
+                } }>Edit</Dropdown.Item>
+              <Dropdown.Item
+                onClick={ () => {
+                  deletePropagation({ variables: { id: propagation.id } });
+                  toast.loading('Deleting Propagation...');
+                } }>Delete</Dropdown.Item>
+            </Dropdown>
           </div>
         </div>
         <div className="flex-none">
@@ -82,8 +136,8 @@ export const PropagationOverview: React.FC<PropagationOverviewProps> = ({
               icon={ PiGraphFill }
               title="Nodes"
             >
-              <PropagationDendrogram
-                propagation={ propagation }
+              <PropagationNetworkGraph
+                propagationFragmentRef={ propagation }
                 width={ 600 }
                 height={ 300 }
               />

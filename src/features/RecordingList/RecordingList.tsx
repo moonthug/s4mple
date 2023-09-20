@@ -1,12 +1,10 @@
 'use client';
 
-import { FragmentType, useFragment } from '@/graphql/fragment-masking';
-import { graphql } from '@/graphql/gql';
-import { useMutation } from '@apollo/client';
+import { FragmentType, useFragment } from '@/graphql/generated/fragment-masking';
+import { graphql } from '@/graphql/generated/gql';
 import { Button, Table } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
-import { LuBomb, LuMicroscope } from 'react-icons/lu';
+import { LuMicroscope } from 'react-icons/lu';
 
 
 const RecordingList_QueryFragment = graphql(/* GraphQL */ `
@@ -24,22 +22,12 @@ const RecordingList_QueryFragment = graphql(/* GraphQL */ `
   }
 `);
 
-const DeleteRecording_Mutation = graphql(/* GraphQL */ `
-  mutation DeleteRecording_Mutation($id: ID!) {
-    deleteRecordings(where: { id: $id }) {
-      nodesDeleted
-      relationshipsDeleted
-    }
-  }
-`);
-
 export type RecordingListProps = {
   queryRef: FragmentType<typeof RecordingList_QueryFragment>
 }
 
 export const RecordingList: React.FC<RecordingListProps> = ({ queryRef }) => {
   const query = useFragment(RecordingList_QueryFragment, queryRef);
-  const [deleteRecording, { data, loading, error }] = useMutation(DeleteRecording_Mutation);
 
   const router = useRouter();
 
@@ -47,10 +35,10 @@ export const RecordingList: React.FC<RecordingListProps> = ({ queryRef }) => {
     <Table>
       <Table.Head>
         <Table.HeadCell>Code</Table.HeadCell>
-        <Table.HeadCell>Date Created</Table.HeadCell>
+        <Table.HeadCell className="hidden md:table-cell">Date Created</Table.HeadCell>
         <Table.HeadCell>Name</Table.HeadCell>
-        <Table.HeadCell>Description</Table.HeadCell>
-        <Table.HeadCell>Sample Count</Table.HeadCell>
+        <Table.HeadCell className="hidden md:table-cell">Description</Table.HeadCell>
+        <Table.HeadCell className="hidden md:table-cell">Sample Count</Table.HeadCell>
         <Table.HeadCell>
           <span className="sr-only">
             Edit
@@ -61,35 +49,22 @@ export const RecordingList: React.FC<RecordingListProps> = ({ queryRef }) => {
         {
           query.recordings.map((recording) => (
             <Table.Row key={ recording.id } className="bg-white dark:border-gray-700 dark:bg-gray-800">
-              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">{ recording.code }</Table.Cell>
-              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">{ recording.createdAt }</Table.Cell>
-              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">{ recording.name }</Table.Cell>
-              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">{ recording.description }</Table.Cell>
-              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">{ recording.samples.length }</Table.Cell>
-              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                <Button.Group>
-                  <Button
-                    color="red"
-                    onClick={
-                      () => {
-                        deleteRecording({ variables: { id: recording.id } });
-                        toast.loading('Deleting Recording...');
-                      }
-                    }>
-                    <LuBomb className="mr-3 h-5 w-5"/>
-                    <p>Delete</p>
-                  </Button>
-                  <Button
-                    color="green"
-                    onClick={
-                      () => {
-                        router.push(`/recordings/${ recording.id }`);
-                      }
-                    }>
-                    <LuMicroscope className="mr-3 h-5 w-5"/>
-                    <p>View</p>
-                  </Button>
-                </Button.Group>
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900">{ recording.code }</Table.Cell>
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 hidden md:table-cell">{ recording.createdAt }</Table.Cell>
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900">{ recording.name }</Table.Cell>
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 hidden md:table-cell">{ recording.description }</Table.Cell>
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 hidden md:table-cell">{ recording.samples.length }</Table.Cell>
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
+                <Button
+                  color="green"
+                  onClick={
+                    () => {
+                      router.push(`/recordings/${ recording.id }`);
+                    }
+                  }>
+                  <LuMicroscope className="mr-0 h-5 w-5 md:mr-3"/>
+                  <p className="hidden md:block">View</p>
+                </Button>
               </Table.Cell>
             </Table.Row>
           ))

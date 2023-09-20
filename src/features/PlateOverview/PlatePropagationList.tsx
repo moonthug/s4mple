@@ -5,8 +5,8 @@ import { FragmentType, useFragment } from '@/graphql/generated/fragment-masking'
 import { graphql } from '@/graphql/generated/gql';
 
 
-export const PropagationList_SampleFragment = graphql(/* GraphQL */ `
-  fragment PropagationList_SampleFragment on Sample {
+export const PropagationList_PlateFragment = graphql(/* GraphQL */ `
+  fragment PropagationList_PlateFragment on Plate {
     propagations {
       ...PropagationListItem_PropagationFragment
     }
@@ -14,13 +14,13 @@ export const PropagationList_SampleFragment = graphql(/* GraphQL */ `
 `);
 
 export type PropagationListProps = {
-  sampleFragmentRef: FragmentType<typeof PropagationList_SampleFragment>
+  plateFragmentRef: FragmentType<typeof PropagationList_PlateFragment>
 }
 
-export const SamplePropagationList: React.FC<PropagationListProps> = ({
-  sampleFragmentRef
+export const PlatePropagationList: React.FC<PropagationListProps> = ({
+  plateFragmentRef
 }) => {
-  const query = useFragment(PropagationList_SampleFragment, sampleFragmentRef);
+  const query = useFragment(PropagationList_PlateFragment, plateFragmentRef);
 
   // @TODO Fix as any
   return <PropagationList

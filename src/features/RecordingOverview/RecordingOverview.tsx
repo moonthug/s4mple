@@ -4,10 +4,12 @@ import Divider from '@/components/Divider';
 import EntityTitleId from '@/components/text/EntityTitleId';
 import RecordingNetworkGraph from '@/features/RecordingOverview/RecordingNetworkGraph';
 import RecordingSampleMap from '@/features/RecordingOverview/RecordingSampleMap';
-import { FragmentType, useFragment } from '@/graphql/fragment-masking';
-import { graphql } from '@/graphql/gql';
-import { Button, Tabs } from 'flowbite-react';
+import { FragmentType, useFragment } from '@/graphql/generated/fragment-masking';
+import { graphql } from '@/graphql/generated/gql';
+import { useMutation } from '@apollo/client';
+import { Button, Dropdown, Tabs } from 'flowbite-react';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { LuTestTube2 } from 'react-icons/lu';
 import { PiGraphFill, PiMapPinBold } from 'react-icons/pi';
 import { CircleLayer } from 'react-map-gl';
@@ -29,6 +31,15 @@ const RecordingOverview_RecordingFragment = graphql(/* GraphQL */ `
   }
 `);
 
+const DeleteRecording_Mutation = graphql(/* GraphQL */ `
+  mutation DeleteRecording_Mutation($id: ID!) {
+    deleteRecordings(where: { id: $id }) {
+      nodesDeleted
+      relationshipsDeleted
+    }
+  }
+`);
+
 export const sampleLayer: CircleLayer = {
   id: 'sample-position',
   source: 'samples',
@@ -47,6 +58,7 @@ export const RecordingOverview: React.FC<RecordingProps> = ({
   recordingFragmentRef
 }) => {
   const recording = useFragment(RecordingOverview_RecordingFragment, recordingFragmentRef);
+  const [deleteRecording, { data, loading, error }] = useMutation(DeleteRecording_Mutation);
 
   const [isCreateSampleModalOpen, setIsCreateSampleModalOpen] = useState(false);
 
@@ -68,15 +80,42 @@ export const RecordingOverview: React.FC<RecordingProps> = ({
             <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">{ recording.description } fdsa fads fdsaf dsafsdafsdafdsafdsafsadfasdfasdfsdadfas</dd>
           </dl>
 
-          <Button
-            gradientDuoTone="greenToBlue"
-            outline
-            onClick={ () => setIsCreateSampleModalOpen(true) }
-          >
-            <LuTestTube2 className="mr-3 h-5 w-5"/>
-            Create Sample
-          </Button>
+          <div className="flex flex-row gap-4">
 
+            <Button
+              gradientDuoTone="greenToBlue"
+              outline
+              onClick={ () => setIsCreateSampleModalOpen(true) }
+            >
+              <LuTestTube2 className="mr-3 h-5 w-5"/>
+              Create Sample
+            </Button>
+            <Dropdown
+              inline
+              className="bg-white inline-block"
+              arrowIcon={ false }
+              label={
+                <div className="p-2 rounded-lg hover:bg-gray-100">
+                  <svg
+                    className="w-5 h-5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 4 15">
+                    <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
+                  </svg>
+                </div>
+              }
+            >
+              <Dropdown.Item>Share</Dropdown.Item>
+              <Dropdown.Divider/>
+              <Dropdown.Item
+                onClick={ () => {
+                  deleteRecording({ variables: { id: recording.id } });
+                  toast.loading('Deleting Recording...');
+                } }>Delete</Dropdown.Item>
+            </Dropdown>
+          </div>
         </div>
 
         <div className="flex-none">

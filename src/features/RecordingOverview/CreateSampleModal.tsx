@@ -1,7 +1,7 @@
 'use client';
 
 import CreateSampleForm, { CreateSampleFormData } from '@/components/forms/CreateSampleForm';
-import { graphql } from '@/graphql/gql';
+import { graphql } from '@/graphql/generated/gql';
 import { createConfetti } from '@/lib/confetti';
 import { useMutation } from '@apollo/client';
 import { Modal } from 'flowbite-react';

@@ -1,5 +1,5 @@
 import PropagationOverview from '@/features/PropagationOverview/PropagationOverview';
-import { graphql } from '@/graphql/gql';
+import { graphql } from '@/graphql/generated/gql';
 import { getClient } from '@/lib/apollo';
 import { Metadata } from 'next';
 

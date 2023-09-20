@@ -59,6 +59,7 @@ type Sample {
 type Propagation {
   id: ID! @id(autogenerate: true)
   code: String! # @populatedBy(callback: "code", operations: [CREATE])
+  description: String
 
   createdAt: DateTime! @timestamp(operations: [CREATE])
   updatedAt: DateTime! @timestamp(operations: [CREATE, UPDATE])

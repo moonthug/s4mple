@@ -1,8 +1,8 @@
 'use client';
 
 import { PropagationList } from '@/features/PropagationList';
-import { FragmentType, useFragment } from '@/graphql/fragment-masking';
-import { graphql } from '@/graphql/gql';
+import { FragmentType, useFragment } from '@/graphql/generated/fragment-masking';
+import { graphql } from '@/graphql/generated/gql';
 
 
 export const PropagationList_PropagationFragment = graphql(/* GraphQL */ `

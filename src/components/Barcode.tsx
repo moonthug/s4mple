@@ -1,44 +1,41 @@
-import JsBarcode, { Options } from 'jsbarcode';
+'use client';
+
+import { Spinner } from 'flowbite-react';
+import JsBarcode from 'jsbarcode';
 import React, { useEffect, useRef } from 'react';
 
 
-export const enum Renderer {
-  svg = 'svg',
-  image = 'image',
-  canvas = 'canvas',
-}
-
 type BarcodeProps = {
   id?: string;
-  renderer?: Renderer;
-  value: string;
-  options?: Options;
+  value?: string;
   style?: React.CSSProperties;
   className?: string;
+  isLoading: boolean;
 }
 
 const Barcode: React.FC<BarcodeProps> = ({
-  id = 'barcode',
   style,
   className,
   value,
-  options,
-  renderer = Renderer.svg
+  isLoading = false
 }) => {
   const containerRef = useRef<any>(null);
 
   useEffect(() => {
-    JsBarcode(containerRef.current, value, options);
-  }, [value, options, renderer]);
+    if (containerRef.current && value) {
+      JsBarcode(containerRef.current, value, { format: 'code128' });
+    }
+  }, [value, containerRef]);
 
-  switch (renderer) {
-    case 'canvas':
-      return <canvas id={ id } ref={ containerRef } style={ style } className={ className }/>;
-    case 'image':
-      return <img id={ id } ref={ containerRef } alt="barcode" style={ style } className={ className }/>;
-    default:
-      return <svg id={ id } ref={ containerRef } style={ style } className={ className }/>;
+  if (isLoading) {
+    return (
+      <Spinner/>
+    );
   }
+
+  return (
+    <canvas id="barcode" ref={ containerRef } style={ style } className={ className }/>
+  );
 };
 
 export default Barcode;

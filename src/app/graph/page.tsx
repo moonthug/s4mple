@@ -1,6 +1,12 @@
-import FullNetworkGraph from '@/features/FullNetworkGraph';
 import { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import React from 'react';
+
+
+const FullNetworkGraph = dynamic(
+  () => import('@/features/FullNetworkGraph'),
+  { ssr: false }
+);
 
 
 export const metadata: Metadata = {
